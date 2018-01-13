@@ -387,7 +387,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 19304661}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -600, y: 319.9121, z: 0}
+  m_LocalPosition: {x: -600, y: 319.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1497846110}
@@ -3447,9 +3447,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 877185091}
   remainingDistance: 5.01
-  AOE: {fileID: 691921009}
-  AOERadius: 5
+  bite: {fileID: 0}
+  biteRadius: 0
   distance: 0
+  falter: 0
 --- !u!195 &321752864
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5623,7 +5624,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 480965261}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -600, y: -249.91211, z: 0}
+  m_LocalPosition: {x: -600, y: -249.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1405536875}
@@ -8033,7 +8034,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 739451171}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 550, y: -184.91211, z: 0}
+  m_LocalPosition: {x: 550, y: -184.6, z: 0}
   m_LocalScale: {x: 1.0000081, y: 1.0000081, z: 1.0000081}
   m_Children: []
   m_Father: {fileID: 1917303575}
@@ -8926,7 +8927,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831597233}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 700, y: -249.91211, z: 0}
+  m_LocalPosition: {x: 700, y: -249.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1493471842}
@@ -12115,7 +12116,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094185594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 425, y: -339.9121, z: 0}
+  m_LocalPosition: {x: 425, y: -339.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1917303575}
@@ -17054,7 +17055,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c051ce7b6864e4588192a5b4673b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoxView: {fileID: 0}
   _Targets: []
+  _Sprite: {fileID: 0}
 --- !u!1 &1629379995
 GameObject:
   m_ObjectHideFlags: 0
@@ -17992,7 +17995,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1720981849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -390, y: 309.9121, z: 0}
+  m_LocalPosition: {x: -390, y: 309.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 202568521}
@@ -20285,9 +20288,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 877185091}
   remainingDistance: 5
-  AOE: {fileID: 347445576}
-  AOERadius: 4
+  bite: {fileID: 347445576}
+  biteRadius: 4
   distance: 0
+  falter: 0
 --- !u!195 &1797242439
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -21747,8 +21751,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1917303574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 284.5, y: 160, z: 0}
-  m_LocalScale: {x: 0.355625, y: 0.355625, z: 0.355625}
+  m_LocalPosition: {x: 250, y: 140.5, z: 0}
+  m_LocalScale: {x: 0.3125, y: 0.3125, z: 0.3125}
   m_Children:
   - {fileID: 2138244965}
   - {fileID: 449675127}
@@ -21880,10 +21884,7 @@ MonoBehaviour:
   mocFile: {fileID: 4900000, guid: b46ae4cc2e5c61b408c259f7c83acd1d, type: 3}
   textureFiles:
   - {fileID: 2800000, guid: b41195b2426965b4fbf8e84b2b699abb, type: 3}
-  motionFile: {fileID: 4900000, guid: 78db4e78a9d4f07468f9914d97da85fa, type: 3}
-  motionFile2: {fileID: 4900000, guid: f62a72038e218734495c7b8c883d9d0d, type: 3}
-  motionFile3: {fileID: 4900000, guid: 174bde4a26b804142951a887f09e7fbe, type: 3}
-  motionFile4: {fileID: 4900000, guid: 796a4246bb36cb44498a5e40ebcc9331, type: 3}
+  motionFiles: []
 --- !u!1 &1932304122
 GameObject:
   m_ObjectHideFlags: 0
@@ -22757,9 +22758,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 877185091}
   remainingDistance: 3
-  AOE: {fileID: 1634925420}
-  AOERadius: 3
+  bite: {fileID: 0}
+  biteRadius: 0
   distance: 0
+  falter: 0
 --- !u!195 &1997114971
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -23051,9 +23053,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 877185091}
   remainingDistance: 5.01
-  AOE: {fileID: 1184538590}
-  AOERadius: 5
+  bite: {fileID: 0}
+  biteRadius: 0
   distance: 0
+  falter: 0
 --- !u!195 &2011791062
 NavMeshAgent:
   m_ObjectHideFlags: 0

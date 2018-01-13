@@ -17,6 +17,8 @@ public class EnemyNavMesh : MonoBehaviour
     private float biteRadius;
     [SerializeField]
     private float distance;
+    [SerializeField]
+    private bool falter;
 
     void Start()
     {
@@ -58,9 +60,35 @@ public class EnemyNavMesh : MonoBehaviour
         Vector3 v = (player.position - transform.position).normalized;
         bite.transform.position = transform.position + v * biteRadius;
 
-        bite.Damage();
-        agent.speed = speed;
+        yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
+
         isAttack = false;
         bite.gameObject.SetActive(false);
+
+        if (falter)
+        {
+            //怯みモーション
+            //if(怯みモーションend)
+            falter = false;
+        }
+        else
+        {
+            bite.Damage();
+            agent.speed = speed;
+        }
+    }
+
+    private IEnumerator Wait_for_Attack()
+    {
+        float count = 0;
+        while (count < 2.0f)
+        {
+            if (falter)
+            {
+                break;
+            }
+            count += Time.deltaTime;
+            yield return null;
+        }
     }
 }
