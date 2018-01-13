@@ -11,12 +11,14 @@ public class EnemyNavMesh : MonoBehaviour
     private float speed;
 
     [SerializeField]
-    private Main.Main_EnemyAttack AOE;
+    private Main.Main_EnemyAttack bite;
 
     [SerializeField]
-    private float AOERadius;
+    private float biteRadius;
     [SerializeField]
     private float distance;
+    [SerializeField]
+    private bool falter;
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class EnemyNavMesh : MonoBehaviour
         agent.SetDestination(player.position);
 
         agent.updateRotation = false;
-        AOE.gameObject.SetActive(false);
+        bite.gameObject.SetActive(false);
     }
 
     bool isAttack = false;
@@ -52,17 +54,41 @@ public class EnemyNavMesh : MonoBehaviour
     private IEnumerator Routine_Attack()
     {
         isAttack = true;
-        AOE.gameObject.SetActive(true);
+        bite.gameObject.SetActive(true);
         agent.speed = 0.0f;
 
         Vector3 v = (player.position - transform.position).normalized;
-        AOE.transform.position = transform.position + v * AOERadius;
+        bite.transform.position = transform.position + v * biteRadius;
 
-        yield return new WaitForSeconds(2.0f);
+        yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
 
-        AOE.Damage();
-        agent.speed = speed;
         isAttack = false;
-        AOE.gameObject.SetActive(false);
+        bite.gameObject.SetActive(false);
+
+        if (falter)
+        {
+            //怯みモーション
+            //if(怯みモーションend)
+            falter = false;
+        }
+        else
+        {
+            bite.Damage();
+            agent.speed = speed;
+        }
+    }
+
+    private IEnumerator Wait_for_Attack()
+    {
+        float count = 0;
+        while (count < 2.0f)
+        {
+            if (falter)
+            {
+                break;
+            }
+            count += Time.deltaTime;
+            yield return null;
+        }
     }
 }
