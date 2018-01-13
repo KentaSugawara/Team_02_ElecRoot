@@ -41,7 +41,7 @@ namespace Main
             if (other.gameObject.layer == (int)Layers.Character)
             {
                 var chara = other.GetComponent<Main_PlayerCharacter>();
-                Debug.Log(chara);
+                //Debug.Log(chara);
                 if (chara != null)
                 {
                     _Sprite.gameObject.SetActive(true);
