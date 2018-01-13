@@ -1,0 +1,25 @@
+# Live2D Animator Motion Data
+$fps=30.0
+
+$fadein=500
+
+$fadeout=500
+
+ParamAngleZ=0
+ParamBodyAngleY=0
+ParamBodyAngleZ=0,-0.172,-0.633,-1.301,-2.091,-2.909,-3.699,-4.367,-4.828,-5,-3.864,-1.153,2.153,4.864,6,6,6,6,6
+Param7=0
+Param6=1
+Param5=1
+Param9=0
+Param8=0
+Param11=0
+Param10=0
+Param12=0
+Param=0
+Param4=0,0.004,0.018,0.042,0.078,0.128,0.194,0.277,0.378,0.5,0.636,0.77,0.888,0.969,1,1,1,1,1
+Param0=0
+Param1=0
+Param2=0
+Param3=-1
+Param13=-1

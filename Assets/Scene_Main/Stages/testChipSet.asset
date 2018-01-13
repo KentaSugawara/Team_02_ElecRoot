@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d3209a6e5715d4492ed3f1188173a5, type: 3}
+  m_Name: testChipSet
+  m_EditorClassIdentifier: 
+  Objects:
+  - {fileID: 1647802072769672, guid: 9a520cfa57708fd41839e05b40abfa1f, type: 2}
+  - {fileID: 1084418584056954, guid: 2e46ad2debe1ae84ea414de0f33df810, type: 2}
+  - {fileID: 1474283366672838, guid: d0773b46b56177749a2d5943274d25e8, type: 2}
+  - {fileID: 1614986329337870, guid: 71971faa32fa9374cb112965d9dc182e, type: 2}
+  - {fileID: 1767338823096950, guid: 78e3acf42de4d884395f167b81081e5e, type: 2}
+  - {fileID: 1289636435169060, guid: c20914c48580af84aaba9e2e44fdaf58, type: 2}
+  - {fileID: 1380354552026352, guid: 3bc565eb10a90704bb1a02ee5b82ff58, type: 2}
+  - {fileID: 1215226932664858, guid: acbc53524b26cda4093f0218e94f0184, type: 2}
