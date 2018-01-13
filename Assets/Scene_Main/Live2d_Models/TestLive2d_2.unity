@@ -2128,6 +2128,7 @@ MonoBehaviour:
   remainingDistance: 5.01
   AOE: {fileID: 691921009}
   AOERadius: 5
+  distance: 0
 --- !u!195 &321752864
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13384,6 +13385,7 @@ MonoBehaviour:
   remainingDistance: 5.01
   AOE: {fileID: 347445576}
   AOERadius: 5
+  distance: 0
 --- !u!195 &1797242439
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13802,19 +13804,20 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 5d398cb8ed5d34f4380639cd3c5025db, type: 3}
   motionFiles:
   - {fileID: 4900000, guid: 78db4e78a9d4f07468f9914d97da85fa, type: 3}
-  - {fileID: 4900000, guid: f62a72038e218734495c7b8c883d9d0d, type: 3}
+  - {fileID: 4900000, guid: 169a043c3cff83445a98731f0dd315ba, type: 3}
   - {fileID: 4900000, guid: 4b73ac52f203a3948a33ff676d8ddbe5, type: 3}
   - {fileID: 4900000, guid: a6a7df05f4c524147b64fe3b62751e74, type: 3}
-  - {fileID: 4900000, guid: 95e6c036de1efee4589d194235275dd7, type: 3}
+  - {fileID: 4900000, guid: 6209f4bbbc8252845afc2b5f4cc0184c, type: 3}
   - {fileID: 4900000, guid: 71dd81e005100d343a53dde19e92c9f6, type: 3}
   - {fileID: 4900000, guid: 41423e8cf8995314bb3c19ba1762a405, type: 3}
-  - {fileID: 4900000, guid: 7ebaff2cd3e669c4b877ce28b744ef8a, type: 3}
+  - {fileID: 4900000, guid: e632644c32db24446be29c3049f376e3, type: 3}
   - {fileID: 4900000, guid: a83015793ee110a4fbe2343c3f232c73, type: 3}
   - {fileID: 4900000, guid: 64c031ecdc374204f9fe80de11ee891e, type: 3}
   - {fileID: 4900000, guid: a568193f6d6ca3944b27c69aad86ee48, type: 3}
   - {fileID: 4900000, guid: badead39ddd84ed42b790b79785891ff, type: 3}
   - {fileID: 4900000, guid: 9677f98e919d44542ba00401aa27fcfd, type: 3}
   - {fileID: 4900000, guid: e45bf6294b569d445a0e39ea6f651fa4, type: 3}
+  - {fileID: 4900000, guid: 65189011b41fabe449a296528ed00277, type: 3}
 --- !u!1 &1959893336
 GameObject:
   m_ObjectHideFlags: 0
@@ -14018,6 +14021,7 @@ MonoBehaviour:
   remainingDistance: 5.01
   AOE: {fileID: 1634925420}
   AOERadius: 5
+  distance: 0
 --- !u!195 &1997114971
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14143,6 +14147,7 @@ MonoBehaviour:
   remainingDistance: 5.01
   AOE: {fileID: 1184538590}
   AOERadius: 5
+  distance: 0
 --- !u!195 &2011791062
 NavMeshAgent:
   m_ObjectHideFlags: 0
