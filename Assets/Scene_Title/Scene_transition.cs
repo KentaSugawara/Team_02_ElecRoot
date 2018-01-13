@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Scene_transition_from_Title : MonoBehaviour {
+public class Scene_transition : MonoBehaviour {
 	void Update () {
         if (Input.GetMouseButtonUp(0))
         {
