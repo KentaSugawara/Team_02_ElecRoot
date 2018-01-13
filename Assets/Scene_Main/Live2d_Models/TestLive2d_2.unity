@@ -8225,7 +8225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1168167632
 Transform:
   m_ObjectHideFlags: 0
@@ -8291,15 +8291,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168167631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b72147e15a7eba478a517233b402b2c, type: 3}
+  m_Script: {fileID: 11500000, guid: d0c2f21bcfca5694a93c359a6511c724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 877185092}
   mocFile: {fileID: 4900000, guid: 7f1bf1abb91279c4f91138ed320b79b6, type: 3}
   textureFiles:
   - {fileID: 2800000, guid: 9de38cf7903bac246a4b8603a26f2edb, type: 3}
   motionFiles:
-  - {fileID: 4900000, guid: 912333cdebf71444da07be4d08919765, type: 3}
   - {fileID: 4900000, guid: 912333cdebf71444da07be4d08919765, type: 3}
   - {fileID: 4900000, guid: 0b60757617e58d34fab4836763d424d9, type: 3}
   - {fileID: 4900000, guid: ba82bd4766f8e3842bd9da785a706244, type: 3}
