@@ -40,7 +40,7 @@ namespace Main
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.HandAttack);
             _HandAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _HandAttackLength);
-            yield return new WaitForSeconds(1.0f + 8.0f / 30.0f);
+            yield return new WaitForSeconds(0.0f + 20.0f / 30.0f);
             inAction = false;
             _PlayerCharacter.ChangeState(CharaState.Wait);
         }
@@ -64,7 +64,7 @@ namespace Main
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.BarAttack);
             _BarAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _BarAttackLength);
-            yield return new WaitForSeconds(1.0f + 8.0f / 30.0f);
+            yield return new WaitForSeconds(0.0f + 20.0f / 30.0f);
             //yield return new WaitForSeconds(3.3333f);
             inAction = false;
             _PlayerCharacter.ChangeState(CharaState.Wait);
