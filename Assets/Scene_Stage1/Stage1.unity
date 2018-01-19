@@ -11914,9 +11914,9 @@ MonoBehaviour:
   LockOnImage: {fileID: 865383297}
   _HP: 0
   _NumOfBar: 0
-  _FindRadius: 0
-  _HandAttack: {fileID: 0}
-  _BarAttack: {fileID: 0}
+  _FindRadius: 5
+  _HandAttack: {fileID: 281020328}
+  _BarAttack: {fileID: 905913802}
 --- !u!114 &877185093
 MonoBehaviour:
   m_ObjectHideFlags: 0
