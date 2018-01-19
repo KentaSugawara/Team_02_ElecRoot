@@ -11,8 +11,11 @@ public class Main_TimeManager : MonoBehaviour
         Targets.Add(c);
     }
 
-    public static void TimeStop(float t)
-    {
+    //public static void TimeStop(float t)
+    //{
+    //    foreach()
+    //    {
 
-    }
+    //    }
+    //}
 }

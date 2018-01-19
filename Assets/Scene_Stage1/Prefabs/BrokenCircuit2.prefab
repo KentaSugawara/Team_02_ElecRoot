@@ -250,7 +250,7 @@ MonoBehaviour:
   _DenkiParticle: {fileID: 1058381939324704}
   _LightTexture: {fileID: 212210665139428250}
   _LockOnObj: {fileID: 1666122182026368}
-  _LightSpan: 2
+  _LightSpan: 1
   _RepairSpeed: 1
 --- !u!198 &198243383650622984
 ParticleSystem:
