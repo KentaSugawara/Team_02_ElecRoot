@@ -64,6 +64,7 @@ public class EnemyModel : MonoBehaviour
         motionMgr = new MotionQueueManager();
     }
 
+    private EnemyState? main = null;
 
     void Update()
     {
@@ -76,31 +77,35 @@ public class EnemyModel : MonoBehaviour
             return;
         }
 
-
-        if (motionMgr.isFinished())
+        if (motionMgr.isFinished() || main != _State)
         {
             //歩き
-            if (State == EnemyState.Walk)
+            if (_State == EnemyState.Walk)
             {
                 motionMgr.startMotion(motions[0]);
             }
+        }
+
+        if (main != _State)
+        {
             //噛みつき
-            else if (State == EnemyState.Attack)
+            if (_State == EnemyState.Attack)
             {
                 motionMgr.startMotion(motions[1]);
             }
             //怯み
-            else if (State == EnemyState.Stop)
+            else if (_State == EnemyState.Stop)
             {
                 motionMgr.startMotion(motions[2]);
             }
             //停止
-            if (State == EnemyState.Wait)
+            if (_State == EnemyState.Wait)
             {
                 motionMgr.startMotion(motions[3]);
             }
         }
 
+        main = _State;
 
         motionMgr.updateParam(live2DModel);
         live2DModel.update();

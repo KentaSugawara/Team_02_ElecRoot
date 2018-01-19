@@ -17,6 +17,10 @@ namespace Main
 
         [Space(5)]
         [SerializeField]
+        private Main_TouHikari _Tou_Hikari;
+
+        [Space(5)]
+        [SerializeField]
         private Image _Image_GameOver;
 
         [SerializeField]
@@ -41,7 +45,14 @@ namespace Main
 
         public void Start_GameClear()
         {
+            StartCoroutine(Routine_GameClear());
+        }
 
+        private IEnumerator Routine_GameClear()
+        {
+            bool isRunning = true;
+            _Tou_Hikari.StartClearFlash(() => isRunning = false);
+            while (isRunning) yield return null;
         }
 
         public void Start_GameOver()

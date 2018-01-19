@@ -81,11 +81,39 @@ namespace Main
                 return;
             }
 
+            StartCoroutine(Routine_Shot());
+        }
+
+        private IEnumerator Routine_Shot()
+        {
+            _PlayerCharacter.ChangeState(CharaState.Shot);
+            inAction = true;
             Vector3 v = _PlayerCharacter.calcShotVector();
 
             var obj = Instantiate(_Prefab_ShotObj, _PlayerCharacter.transform.position, Quaternion.identity);
             var bullet = obj.GetComponent<Main_Bullet>();
             bullet.StartMove(v * _BulletSpeed);
+            yield return new WaitForSeconds(3.0f + 20.0f / 30.0f);
+            inAction = false;
+            _PlayerCharacter.ChangeState(CharaState.Wait);
+        }
+
+        public void Damage()
+        {
+            StartCoroutine(Routine_Damage());
+        }
+
+        private IEnumerator Routine_Damage()
+        {
+            Debug.Log("Damage");
+            _PlayerCharacter.ChangeState(CharaState.Damage);
+            yield return new WaitForSeconds(1.0f);
+            _PlayerCharacter.ChangeState(CharaState.Wait);
+        }
+
+        public void Down()
+        {
+            _PlayerCharacter.ChangeState(CharaState.Down);
         }
     }
 }

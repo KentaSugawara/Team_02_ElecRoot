@@ -11,7 +11,9 @@ namespace Main
         Run,
         HandAttack,
         BarAttack,
-        Shot
+        Shot,
+        Damage,
+        Down
     }
 
     public class Main_PlayerCharacter : MonoBehaviour
@@ -71,8 +73,13 @@ namespace Main
             --_HP;
             if (_HP <= 0)
             {
+                _Action.Down();
                 Main_GameManager.GameOver();
                 _HP = 0;
+            }
+            else
+            {
+                _Action.Damage();
             }
             UpdateLifeViewer();
         }
@@ -125,6 +132,11 @@ namespace Main
         int Mask_Floor = 1 << 19;
         public void Move(Vector2 MoveVector, float Magnitude)
         {
+            if (_State == CharaState.HandAttack && _State == CharaState.BarAttack && _State == CharaState.Damage && _State == CharaState.Down)
+            {
+                return;
+            }
+
             //CharacterDir を更新
             {
                 Vector2 v2 = MoveVector.normalized;
@@ -184,7 +196,7 @@ namespace Main
         {
             _Rigidbody.velocity = Vector3.zero;
             //
-            if (_State != CharaState.HandAttack && _State != CharaState.BarAttack)
+            if (_State != CharaState.HandAttack && _State != CharaState.BarAttack && _State != CharaState.Damage && _State != CharaState.Down)
             {
                 ChangeState(CharaState.Wait);
             }
