@@ -11,5 +11,8 @@ public class Main_TimeManager : MonoBehaviour
         Targets.Add(c);
     }
 
-    public static 
+    public static void TimeStop(float t)
+    {
+
+    }
 }
