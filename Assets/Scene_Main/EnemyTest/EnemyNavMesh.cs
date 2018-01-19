@@ -20,8 +20,23 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField]
     private bool falter;
 
+    [SerializeField]
+    private Main_Enemy _Enemy;
+
+    [SerializeField]
+    private bool _isLeft;
+    public bool isLeft
+    {
+        get { return _isLeft; }
+    }
+
+    [SerializeField]
+    private EnemyModel _EnemyModel;
+
     void Start()
     {
+        _EnemyModel.State = EnemyModel.EnemyState.Wait;
+
         agent = gameObject.GetComponent<NavMeshAgent>();
         speed = agent.speed;
         agent.speed = 0.0f;
@@ -34,11 +49,25 @@ public class EnemyNavMesh : MonoBehaviour
     bool isAttack = false;
     void Update()
     {
+        if (_Enemy.isDead) return;
+
         distance = Vector3.Distance(gameObject.transform.position, player.position);
         if (!isAttack)
         {
+            _EnemyModel.State = EnemyModel.EnemyState.Walk;
             gameObject.transform.Translate(0, -0.5f, 0);
             agent.SetDestination(player.position);
+
+            
+            if (agent.velocity.x < 0.0f)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
             if (distance < remainingDistance * 2)
             {
                 agent.speed = speed;
@@ -60,7 +89,9 @@ public class EnemyNavMesh : MonoBehaviour
         Vector3 v = (player.position - transform.position).normalized;
         bite.transform.position = transform.position + v * biteRadius;
 
+        _EnemyModel.State = EnemyModel.EnemyState.Attack;
         yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
+        _EnemyModel.State = EnemyModel.EnemyState.Wait;
 
         isAttack = false;
         bite.gameObject.SetActive(false);

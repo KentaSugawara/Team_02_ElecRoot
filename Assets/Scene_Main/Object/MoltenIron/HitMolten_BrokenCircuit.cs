@@ -83,6 +83,8 @@ namespace Main
             }
             _BrokenRenderer.material.color = e;
             _LightTexture.material.color = e;
+
+            Main_GameManager.RepairCiruit();
         }
     }
 }

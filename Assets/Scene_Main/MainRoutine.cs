@@ -30,9 +30,14 @@ namespace Main
         [SerializeField]
         private Main_SceneManager _SceneManager;
 
+        [SerializeField]
+        private int _NumObBrokenCircuit;
+
         private void Awake()
         {
             Main_GameManager.Init(_MainSettings, _MainCamera, _InputManager, _UIManager, _SceneManager);
+
+            Main_GameManager.InitGame(_NumObBrokenCircuit);
 
             _PlayerCharacter.Init(_StartHP, _StartNumOfBar);
         }

@@ -39,7 +39,11 @@ namespace Main
 
         public static void RepairCiruit()
         {
-            --Main_GameManager.NumOfBrokenCircuit;
+            --NumOfBrokenCircuit;
+            if (NumOfBrokenCircuit <= 0)
+            {
+                SceneManager.Start_GameClear();
+            }
         }
 
         public static void GameOver()
