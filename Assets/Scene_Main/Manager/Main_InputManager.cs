@@ -56,7 +56,19 @@ namespace Main
             if (chara != null) chara.Action.Shot();
         }
 
-        private int Mask_TapScreen = 1 << 9 | 1 << 15; // LockOnObject | TapObject
+        public void Chara_StartTargetFind()
+        {
+            var chara = Main_GameManager.UIManager.PlayerCharacter;
+            if (chara != null) chara.StartFindLockOnTarget();
+        }
+
+        public void Chara_StopTargetFind()
+        {
+            var chara = Main_GameManager.UIManager.PlayerCharacter;
+            if (chara != null) chara.StopFindLockOnTarget();
+        }
+
+        private int Mask_TapScreen = /*1 << 9 | */1 << 15; // LockOnObject | TapObject
         /// <summary>
         /// ScreenがタップされたときにRayを飛ばして対象を探す
         /// </summary>
@@ -81,7 +93,7 @@ namespace Main
                         if (target.Tap(chara)) return;
                     }
                 }
-
+                /*
                 if (_LockOnActive)
                 {
                     //LockOn
@@ -98,7 +110,7 @@ namespace Main
                             return;
                         }
                     }
-                }
+                }*/
             }
         }
     }

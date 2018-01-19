@@ -15,9 +15,20 @@ namespace Main
         [SerializeField]
         private GameObject _Sprite;
 
+        [SerializeField]
+        private SpriteRenderer _Sprite_On;
+
+        [SerializeField]
+        private SpriteRenderer _Sprite_Off;
+
+        private bool isOn = false;
+
         private void Start()
         {
             _Sprite.gameObject.SetActive(false);
+            _Sprite_Off.enabled = true;
+            _Sprite_On.enabled = false;
+            isOn = false;
         }
 
         public override bool Tap(Main_PlayerCharacter chara)
@@ -26,10 +37,28 @@ namespace Main
             {
                 base.Tap(chara);
 
-                foreach (var obj in _Targets)
+                if (isOn)
                 {
-                    obj.SetActive(!obj.activeInHierarchy);
+                    foreach (var obj in _Targets)
+                    {
+                        obj.SetActive(true);
+                    }
+                    _Sprite_Off.enabled = true;
+                    _Sprite_On.enabled = false;
+                    isOn = false;
                 }
+                else
+                {
+                    foreach (var obj in _Targets)
+                    {
+                        obj.SetActive(false);
+                    }
+                    _Sprite_Off.enabled = false;
+                    _Sprite_On.enabled = true;
+                    isOn = true;
+                }
+
+
             }
 
             return true;

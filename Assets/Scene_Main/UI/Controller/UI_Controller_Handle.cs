@@ -71,7 +71,7 @@ namespace Main
             {
                 PositionUpdate(point.y);
                 isMove = false;
-                InputSuccess = false;
+                _InputSuccess = false;
             }
         }
 
@@ -88,20 +88,22 @@ namespace Main
         {
             if (isMove == false)
             {
-                if (InputSuccess)
+                if (_InputSuccess)
                 {
                     Main_GameManager.InputManager.Chara_Shot();
-                    InputSuccess = false;
+                    Main_GameManager.InputManager.Chara_StopTargetFind();
+                    _InputSuccess = false;
                 }
                 isMove = true;
             }
             _FieldImage.color = Color.white;
         }
 
-        private bool InputSuccess = false;
+        private bool _InputSuccess = false;
+        public bool InputSuccess { get { return _InputSuccess; } }
         private void PositionUpdate(float posY)
         {
-            InputSuccess = false;
+            _InputSuccess = false;
             if (posY > HandleStartY)
             {
                 posY = HandleStartY;
@@ -109,8 +111,15 @@ namespace Main
             else if (posY < HandleEndY)
             {
                 posY = HandleEndY;
-                InputSuccess = true;
+                _InputSuccess = true;
                 _FieldImage.color = Color.red;
+                Main_GameManager.InputManager.Chara_StartTargetFind();
+            }
+            else
+            {
+                _InputSuccess = false;
+                _FieldImage.color = Color.white;
+                Main_GameManager.InputManager.Chara_StopTargetFind();
             }
 
             Vector3 pos = _Handle.position;

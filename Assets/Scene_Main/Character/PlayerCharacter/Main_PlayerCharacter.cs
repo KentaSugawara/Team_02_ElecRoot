@@ -10,7 +10,8 @@ namespace Main
         Walk,
         Run,
         HandAttack,
-        BarAttack
+        BarAttack,
+        Shot
     }
 
     public class Main_PlayerCharacter : MonoBehaviour
@@ -78,6 +79,15 @@ namespace Main
         {
             get { return _NumOfBar; }
         }
+
+        [SerializeField]
+        private float _FindRadius;
+
+        [SerializeField]
+        private Main_Player_Attack _HandAttack;
+
+        [SerializeField]
+        private Main_Player_Attack _BarAttack;
 
         public void Init(int HP, int NumOfBar)
         {
@@ -260,6 +270,44 @@ namespace Main
             }
 
             return false;
+        }
+
+        private int Mask_LockOn = 1 << 9; // LockOnObject
+        private IEnumerator FindTargetRoutine;
+        /// <summary>
+        /// 
+        /// </summary>
+        public void StartFindLockOnTarget()
+        {
+            if (FindTargetRoutine != null) StopCoroutine(FindTargetRoutine);
+            FindTargetRoutine = Routine_FindTarget();
+            StartCoroutine(FindTargetRoutine);
+        }
+
+        public void StopFindLockOnTarget()
+        {
+            if (FindTargetRoutine != null) StopCoroutine(FindTargetRoutine);
+            stopLockOn();
+        }
+
+        private IEnumerator Routine_FindTarget()
+        {
+            while(true)
+            {
+                var colliders = Physics.OverlapSphere(transform.position, _FindRadius, Mask_LockOn);
+                if (colliders.Length > 0)
+                {
+                    Debug.Log(colliders.Length);
+                    var target = colliders[0].GetComponent<Main_LockOnObject>();
+                    setLockOn(target);
+                }
+                else
+                {
+                    stopLockOn();
+                }
+
+                yield return new WaitForFixedUpdate();
+            }
         }
     }
 }
