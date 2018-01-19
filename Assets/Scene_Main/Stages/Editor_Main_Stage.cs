@@ -23,7 +23,7 @@ namespace Main
             var ray = Camera.current.ScreenPointToRay(mousePosition);
             bool result = Physics.Raycast(ray, out hit, 1000.0f, Mask_Stage);
 
-            if (Event.current.type == EventType.keyDown)
+            if (Event.current.type == EventType.KeyDown)
             {
                 if (Event.current.character == '1')
                 {
