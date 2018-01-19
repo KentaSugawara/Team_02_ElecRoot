@@ -32,6 +32,7 @@ public class EnemyModel_2 : MonoBehaviour
     public Enemy2State State2
     {
         get { return _State2; }
+        set { _State2 = value; }
     }
 
     void Start()
