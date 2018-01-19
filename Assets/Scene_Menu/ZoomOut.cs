@@ -36,7 +36,7 @@ public class ZoomOut : MonoBehaviour
     {
         while (true)
         {
-            for(int i = 0; i < 2; i++)
+            for(int i = 0; i < 3; i++)
             {
                 tit[i].SetActive(false);
             }
@@ -48,7 +48,7 @@ public class ZoomOut : MonoBehaviour
 
             if (anc.pivot.x >= 1.0f)
             {
-                for(int i = 2; i < tit.Length; i++)
+                for(int i = 3; i < tit.Length; i++)
                 {
                     tit[i].SetActive(true);
                 }
