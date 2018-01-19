@@ -20,6 +20,20 @@ public class EnemyModel : MonoBehaviour
     private Matrix4x4 live2DCanvasPos;
     private MotionQueueManager motionMgr;
 
+    public enum EnemyState
+    {
+        Wait,
+        Walk,
+        Attack,
+        Stop
+    }
+
+    private EnemyState _State = EnemyState.Wait;
+    public EnemyState State
+    {
+        get { return _State; }
+        set { _State = value; }
+    }
 
     void Start()
     {
@@ -29,6 +43,8 @@ public class EnemyModel : MonoBehaviour
         Live2D.init();
 
         live2DModel = Live2DModelUnity.loadModel(mocFile.bytes);
+        live2DModel.setRenderMode(Live2D.L2D_RENDER_DRAW_MESH);
+
         for (int i = 0; i < textureFiles.Length; i++)
         {
             live2DModel.setTexture(i, textureFiles[i]);
@@ -48,7 +64,6 @@ public class EnemyModel : MonoBehaviour
         motionMgr = new MotionQueueManager();
     }
 
-    private Main.CharaState? main = null;
 
     void Update()
     {
@@ -65,35 +80,30 @@ public class EnemyModel : MonoBehaviour
         if (motionMgr.isFinished())
         {
             //歩き
-            //if (/*なんかはんてい*/)
-            //{
-            motionMgr.startMotion(motions[0]);
-            //}
-            ////噛みつき
-            //else if ((/*なんかはんてい*/)
-            //{
-            //    motionMgr.startMotion(motions[1]);
-            //}
-            ////怯み
-            //else if ((/*なんかはんてい*/)
-            //{
-            //    motionMgr.startMotion(motions[2]);
-            //}
-            ////停止
-            //if (/*なんかはんてい*/)
-            //{
-            //    motionMgr.startMotion(motions[4]);
-            //}
+            if (State == EnemyState.Walk)
+            {
+                motionMgr.startMotion(motions[0]);
+            }
+            //噛みつき
+            else if (State == EnemyState.Attack)
+            {
+                motionMgr.startMotion(motions[1]);
+            }
+            //怯み
+            else if (State == EnemyState.Stop)
+            {
+                motionMgr.startMotion(motions[2]);
+            }
+            //停止
+            if (State == EnemyState.Wait)
+            {
+                motionMgr.startMotion(motions[3]);
+            }
         }
 
 
         motionMgr.updateParam(live2DModel);
         live2DModel.update();
-    }
-
-    void OnRenderObject()
-    {
-        if (live2DModel == null) return;
         live2DModel.draw();
     }
 }

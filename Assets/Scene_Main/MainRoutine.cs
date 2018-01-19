@@ -27,9 +27,12 @@ namespace Main
         [SerializeField]
         private Main_UIManager _UIManager;
 
+        [SerializeField]
+        private Main_SceneManager _SceneManager;
+
         private void Awake()
         {
-            Main_GameManager.Init(_MainSettings, _MainCamera, _InputManager, _UIManager);
+            Main_GameManager.Init(_MainSettings, _MainCamera, _InputManager, _UIManager, _SceneManager);
 
             _PlayerCharacter.Init(_StartHP, _StartNumOfBar);
         }

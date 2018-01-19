@@ -69,7 +69,11 @@ namespace Main
         public void Damage()
         {
             --_HP;
-            if (_HP < 0) _HP = 0;
+            if (_HP <= 0)
+            {
+                Main_GameManager.GameOver();
+                _HP = 0;
+            }
             UpdateLifeViewer();
         }
 
