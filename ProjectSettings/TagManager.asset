@@ -19,7 +19,7 @@ TagManager:
   - Bullet
   - 
   - Character
-  - 
+  - Enemy
   - BarStorage
   - 
   - 
@@ -28,7 +28,7 @@ TagManager:
   - Stage
   - 
   - 
-  - 
+  - Attack
   - MoltenIron
   - Hit_MoltenIron
   - 

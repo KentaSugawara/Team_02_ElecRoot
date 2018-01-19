@@ -15,6 +15,18 @@ namespace Main
         [SerializeField]
         bool inAction = false;
 
+        [SerializeField]
+        private Main_Player_Attack _HandAttack;
+
+        [SerializeField]
+        private float _HandAttackLength;
+
+        [SerializeField]
+        private Main_Player_Attack _BarAttack;
+
+        [SerializeField]
+        private float _BarAttackLength;
+
         public void HandAttack()
         {
             if (!inAction)
@@ -27,6 +39,7 @@ namespace Main
         {
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.HandAttack);
+            _HandAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _HandAttackLength);
             yield return new WaitForSeconds(1.0f + 8.0f / 30.0f);
             inAction = false;
             _PlayerCharacter.ChangeState(CharaState.Wait);
@@ -42,8 +55,15 @@ namespace Main
 
         private IEnumerator Routine_BarAttack()
         {
+            if (_PlayerCharacter.NumOfBar <= 0)
+            {
+                Debug.Log("鉄棒が足りない");
+                yield break;
+            }
+
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.BarAttack);
+            _BarAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _BarAttackLength);
             yield return new WaitForSeconds(1.0f + 8.0f / 30.0f);
             //yield return new WaitForSeconds(3.3333f);
             inAction = false;
