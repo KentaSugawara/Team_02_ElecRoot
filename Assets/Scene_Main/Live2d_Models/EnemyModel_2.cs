@@ -3,7 +3,7 @@ using System;
 using live2d;
 
 [ExecuteInEditMode]
-public class EnemyModel : MonoBehaviour
+public class EnemyModel_2 : MonoBehaviour
 {
 
     [SerializeField]
@@ -20,7 +20,7 @@ public class EnemyModel : MonoBehaviour
     private Matrix4x4 live2DCanvasPos;
     private MotionQueueManager motionMgr;
 
-    public enum EnemyState
+    public enum Enemy2State
     {
         Wait,
         Walk,
@@ -28,10 +28,10 @@ public class EnemyModel : MonoBehaviour
         Stop
     }
 
-    private EnemyState _State = EnemyState.Wait;
-    public EnemyState State
+    private Enemy2State _State2 = Enemy2State.Wait;
+    public Enemy2State State2
     {
-        get { return _State; }
+        get { return _State2; }
     }
 
     void Start()
@@ -79,22 +79,22 @@ public class EnemyModel : MonoBehaviour
         if (motionMgr.isFinished())
         {
             //歩き
-            if (State == EnemyState.Walk)
+            if (State2 == Enemy2State.Walk)
             {
                 motionMgr.startMotion(motions[0]);
             }
-            //噛みつき
-            else if (State == EnemyState.Attack)
+            //攻撃
+            else if (State2 == Enemy2State.Attack)
             {
                 motionMgr.startMotion(motions[1]);
             }
             //怯み
-            else if (State == EnemyState.Stop)
+            else if (State2 == Enemy2State.Stop)
             {
                 motionMgr.startMotion(motions[2]);
             }
             //停止
-            if (State == EnemyState.Wait)
+            if (State2 == Enemy2State.Wait)
             {
                 motionMgr.startMotion(motions[3]);
             }
