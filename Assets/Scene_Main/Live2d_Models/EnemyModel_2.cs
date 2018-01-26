@@ -29,6 +29,7 @@ public class EnemyModel_2 : MonoBehaviour
     }
 
     private Enemy2State _State2 = Enemy2State.Wait;
+
     public Enemy2State State2
     {
         get { return _State2; }

@@ -80,7 +80,7 @@ namespace Main
                 Debug.Log("鉄棒が足りない");
                 return;
             }
-
+            Debug.Log("AAAA");
             StartCoroutine(Routine_Shot());
         }
 
