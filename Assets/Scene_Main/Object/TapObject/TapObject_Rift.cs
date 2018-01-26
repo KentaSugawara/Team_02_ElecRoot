@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace Main
 {
-    public class TapObject_Switch : Main_TapObject
+    public class TapObject_Rift : Main_TapObject
     {
         [SerializeField]
         private GameObject BoxView; //テスト用
+
+        [SerializeField]
+        private List<GameObject> _Targets;
 
         [SerializeField]
         private GameObject _Sprite;
@@ -17,15 +20,6 @@ namespace Main
 
         [SerializeField]
         private SpriteRenderer _Sprite_Off;
-
-        [SerializeField]
-        private Main_UI_EventCameraTarget _Event_On;
-
-        [SerializeField]
-        private Main_UI_EventCameraTarget _Event_Off;
-
-        [SerializeField]
-        private bool canOff;
 
         private bool isOn = false;
 
@@ -45,31 +39,31 @@ namespace Main
 
                 if (isOn)
                 {
-                    if (canOff)
+                    foreach (var obj in _Targets)
                     {
-                        if (_Event_Off) _Event_Off.StartEvent();
-                        _Sprite_Off.enabled = true;
-                        _Sprite_On.enabled = false;
-                        isOn = false;
+                        obj.SetActive(true);
                     }
+                    _Sprite_Off.enabled = true;
+                    _Sprite_On.enabled = false;
+                    isOn = false;
                 }
                 else
                 {
-                    if (_Event_On) _Event_On.StartEvent();
+                    foreach (var obj in _Targets)
+                    {
+                        obj.SetActive(false);
+                    }
                     _Sprite_Off.enabled = false;
                     _Sprite_On.enabled = true;
                     isOn = true;
                 }
             }
-
             return true;
         }
 
         private Main_PlayerCharacter _Character = null;
         private void OnTriggerEnter(Collider other)
         {
-            if (isOn && !canOff) return;
-
             if (other.gameObject.layer == (int)Layers.Character)
             {
                 var chara = other.GetComponent<Main_PlayerCharacter>();
@@ -84,8 +78,6 @@ namespace Main
 
         private void OnTriggerExit(Collider other)
         {
-            if (isOn && !canOff) return;
-
             if (other.gameObject.layer == (int)Layers.Character)
             {
                 var chara = other.GetComponent<Main_PlayerCharacter>();

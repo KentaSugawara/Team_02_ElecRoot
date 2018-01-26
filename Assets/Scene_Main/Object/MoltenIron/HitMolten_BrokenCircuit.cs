@@ -24,6 +24,9 @@ namespace Main
         [SerializeField]
         private float _RepairSpeed = 1.0f;
 
+        [SerializeField]
+        private Main_UI_EventCameraTarget _EventTarget;
+
         private bool _AlreadyHit = false;
 
         private void Start()
@@ -85,6 +88,8 @@ namespace Main
             _LightTexture.material.color = e;
 
             Main_GameManager.RepairCiruit();
+
+            if (_EventTarget) _EventTarget.StartEvent();
         }
     }
 }

@@ -26,5 +26,19 @@ namespace Main
         {
             get { return _BarViewer; }
         }
+
+        [SerializeField]
+        private UI_FadeNormal _Fade_Normal;
+        public UI_FadeNormal Fade_Normal
+        {
+            get { return _Fade_Normal; }
+        }
+
+        [SerializeField]
+        private UI_FadeDissolve _Fade_Dissolve;
+        public UI_FadeDissolve Fade_Dissolve
+        {
+            get { return _Fade_Dissolve; }
+        }
     }
 }

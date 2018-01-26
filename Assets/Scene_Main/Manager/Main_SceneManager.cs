@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
@@ -35,6 +36,12 @@ namespace Main
         [SerializeField]
         private float _ButtonNeedTime;
 
+        [SerializeField]
+        private string _Title_SceneName;
+
+        [SerializeField]
+        private string _Retry_SceneName;
+
         private void Start()
         {
             _FadeImage.gameObject.SetActive(false);
@@ -50,9 +57,35 @@ namespace Main
 
         private IEnumerator Routine_GameClear()
         {
-            bool isRunning = true;
-            _Tou_Hikari.StartClearFlash(() => isRunning = false);
-            while (isRunning) yield return null;
+            var UIManager = Main_GameManager.UIManager;
+            var CameraComponent = Main_GameManager.MainCamera.GetComponent<Main_Camera>();
+
+            //FadeOut
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Normal.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+            
+            //MoveCamera
+            {
+                bool isRunning = true;
+                CameraComponent.StartEventCamera(_Tou_Hikari.CameraTarget);
+                while (isRunning) yield return null;
+            }
+
+            //FadeIn
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Normal.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            {
+                bool isRunning = true;
+                _Tou_Hikari.StartClearFlash(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
         }
 
         public void Start_GameOver()
@@ -103,6 +136,16 @@ namespace Main
                 _Button_ToTitle.SetActive(true);
                 _Button_ToRetry.SetActive(true);
             }
+        }
+
+        public void ToTitle()
+        {
+            SceneManager.LoadScene(_Title_SceneName);
+        }
+
+        public void ToRetry()
+        {
+            SceneManager.LoadScene(_Retry_SceneName);
         }
     }
 }

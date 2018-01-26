@@ -12,6 +12,13 @@ namespace Main
         [SerializeField]
         private SpriteRenderer _Renderer;
 
+        [SerializeField]
+        private Main_UI_EventCameraTarget _CameraTarget;
+        public Main_UI_EventCameraTarget CameraTarget
+        {
+            get { return _CameraTarget; }
+        }
+
         private void Start()
         {
             _Renderer.enabled = false;
