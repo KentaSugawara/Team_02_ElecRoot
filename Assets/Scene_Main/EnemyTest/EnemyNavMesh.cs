@@ -40,6 +40,7 @@ public class EnemyNavMesh : MonoBehaviour
         agent = gameObject.GetComponent<NavMeshAgent>();
         speed = agent.speed;
         agent.speed = 0.0f;
+
         agent.SetDestination(player.position);
 
         agent.updateRotation = false;
@@ -47,18 +48,29 @@ public class EnemyNavMesh : MonoBehaviour
     }
 
     bool isAttack = false;
+
     void Update()
     {
         if (_Enemy.isDead) return;
 
-        distance = Vector3.Distance(gameObject.transform.position, player.position);
         if (!isAttack)
         {
             _EnemyModel.State = EnemyModel.EnemyState.Walk;
             gameObject.transform.Translate(0, -0.5f, 0);
-            agent.SetDestination(player.position);
+            //if (player.position.x > transform.position.x) { agent.SetDestination(player.position + new Vector3(remainingDistance, 0, 0)); }
+            //else { agent.SetDestination(player.position - new Vector3(remainingDistance, 0, 0)); }
 
-            
+            if (player.position.x > transform.position.x)
+            {
+                agent.SetDestination(player.position - new Vector3(2, 0, 0));
+                distance = Vector3.Distance(gameObject.transform.position, player.position - new Vector3(2, 0, 0));
+            }
+            else
+            {
+                agent.SetDestination(player.position + new Vector3(2, 0, 0));
+                distance = Vector3.Distance(gameObject.transform.position, player.position + new Vector3(2, 0, 0));
+            }
+
             if (agent.velocity.x < 0.0f)
             {
                 transform.localScale = new Vector3(1, 1, 1);
@@ -68,16 +80,15 @@ public class EnemyNavMesh : MonoBehaviour
                 transform.localScale = new Vector3(-1, 1, 1);
             }
 
-            if (distance < remainingDistance * 2)
+            if (distance < remainingDistance * 3)
             {
                 agent.speed = speed;
             }
-            if (distance < remainingDistance)
+            if (distance < 1)
             {
                 StartCoroutine(Routine_Attack());
             }
         }
-
     }
 
     private IEnumerator Routine_Attack()
