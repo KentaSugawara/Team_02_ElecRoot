@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 890598733bf74b148af5176bf2afd74a
-timeCreated: 1516932950
+guid: 8de6206d5432e22469ee23b0f6f7e014
+timeCreated: 1516935446
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: "rihuto\u3000sita_0"
-    21300002: "rihuto\u3000sita_1"
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -33,12 +31,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: -1
     mipBias: -1
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -96,35 +94,7 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: "rihuto\u3000sita_0"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: "rihuto\u3000sita_1"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 123
-        width: 512
-        height: 133
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
     physicsShape: []
   spritePackingTag: 
