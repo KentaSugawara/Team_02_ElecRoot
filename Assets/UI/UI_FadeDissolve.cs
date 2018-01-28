@@ -64,6 +64,7 @@ public class UI_FadeDissolve : MonoBehaviour {
 
         isRunning = false;
         isFadeOuted = false;
+        _Image.gameObject.SetActive(false);
         callback();
     }
 
@@ -80,7 +81,6 @@ public class UI_FadeDissolve : MonoBehaviour {
 
         isRunning = false;
         isFadeOuted = false;
-        _Image.gameObject.SetActive(false);
         callback();
     }
 }
