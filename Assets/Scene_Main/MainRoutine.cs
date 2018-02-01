@@ -51,7 +51,7 @@ namespace Main
         {
             Time.timeScale = 0.0f;
             //FadeIn
-            {
+            if(_UIManager.Fade_Dissolve != null) {
                 bool running = true;
                 _UIManager.Fade_Dissolve.StartFade(() => running = false);
                 while (running) yield return null;
