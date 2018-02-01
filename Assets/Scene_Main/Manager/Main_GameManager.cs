@@ -51,5 +51,10 @@ namespace Main
         {
             SceneManager.Start_GameOver();
         }
+
+        public static void GameClear()
+        {
+            SceneManager.Start_GameClear();
+        }
     }
 }

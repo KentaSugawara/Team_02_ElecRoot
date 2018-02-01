@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Velocity: {x: 0, y: 0, z: 0}
+  _Prefab_Effect: {fileID: 1463598315826926, guid: 5393fef3621574e41868e7258b85680a,
+    type: 2}
 --- !u!135 &135853485174467222
 SphereCollider:
   m_ObjectHideFlags: 1

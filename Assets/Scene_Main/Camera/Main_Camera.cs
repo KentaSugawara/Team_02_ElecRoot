@@ -16,22 +16,28 @@ namespace Main
         private float _Speed;
 
         private bool isEventCamera = false;
+        private float _StartOrthoSize;
+        private Camera _MyCamera;
 
         private void Start()
         {
             transform.position = _Target.position + Vector3.up * _Distance;
+            _MyCamera = GetComponent<Camera>();
+            _StartOrthoSize = _MyCamera.orthographicSize;
             StartCoroutine(Routine_Main());
         }
 
         public void StartEventCamera(Main_UI_EventCameraTarget EventTarget)
         {
             transform.position = EventTarget.getPosition() + Vector3.up * _Distance;
+            _MyCamera.orthographicSize = EventTarget.OrthoSize;
             isEventCamera = true;
         }
 
         public void EndEventCamera()
         {
             transform.position = _Target.position + Vector3.up * _Distance;
+            _MyCamera.orthographicSize = _StartOrthoSize;
             isEventCamera = false;
         }
 

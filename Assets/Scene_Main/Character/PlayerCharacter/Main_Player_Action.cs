@@ -22,10 +22,23 @@ namespace Main
         private float _HandAttackLength;
 
         [SerializeField]
+        private Vector3 _HandAttackOffset;
+
+        [SerializeField]
         private Main_Player_Attack _BarAttack;
 
         [SerializeField]
         private float _BarAttackLength;
+
+
+        [SerializeField]
+        private Vector3 _BarAttackOffset;
+
+        [SerializeField]
+        private float _ShotOffsetLength;
+
+        [SerializeField]
+        private Vector3 _ShotOffset;
 
         public void HandAttack()
         {
@@ -39,7 +52,7 @@ namespace Main
         {
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.HandAttack);
-            _HandAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _HandAttackLength);
+            _HandAttack.AttackOneShot(_PlayerCharacter.calcShotVector(), _HandAttackLength, _HandAttackOffset);
             yield return new WaitForSeconds(0.0f + 20.0f / 30.0f);
             inAction = false;
             _PlayerCharacter.ChangeState(CharaState.Wait);
@@ -63,7 +76,7 @@ namespace Main
 
             inAction = true;
             _PlayerCharacter.ChangeState(CharaState.BarAttack);
-            _BarAttack.AttackOnShot(_PlayerCharacter.calcShotVector(), _BarAttackLength);
+            _BarAttack.AttackOneShot(_PlayerCharacter.calcShotVector(), _BarAttackLength, _BarAttackOffset);
             yield return new WaitForSeconds(0.0f + 20.0f / 30.0f);
             //yield return new WaitForSeconds(3.3333f);
             inAction = false;
@@ -80,7 +93,6 @@ namespace Main
                 Debug.Log("鉄棒が足りない");
                 return;
             }
-            Debug.Log("AAAA");
             StartCoroutine(Routine_Shot());
         }
 
@@ -93,7 +105,10 @@ namespace Main
 
             inAction = true;
 
-            var obj = Instantiate(_Prefab_ShotObj, _PlayerCharacter.transform.position, Quaternion.identity);
+            float offset;
+            if (_PlayerCharacter.isLeft) offset = _ShotOffsetLength;
+            else offset = -_ShotOffsetLength;
+            var obj = Instantiate(_Prefab_ShotObj, _PlayerCharacter.transform.position + Vector3.left * offset + _ShotOffset, Quaternion.identity);
             obj.transform.LookAt(obj.transform.position + v);
             var bullet = obj.GetComponent<Main_Bullet>();
             bullet.StartMove(v * _BulletSpeed);
@@ -109,9 +124,8 @@ namespace Main
 
         private IEnumerator Routine_Damage()
         {
-            Debug.Log("Damage");
             _PlayerCharacter.ChangeState(CharaState.Damage);
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             _PlayerCharacter.ChangeState(CharaState.Wait);
         }
 

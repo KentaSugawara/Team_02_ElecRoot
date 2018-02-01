@@ -15,6 +15,9 @@ namespace Main
         [SerializeField]
         private Vector3 _EndPosition;
 
+        [SerializeField]
+        private Transform _NextCharacterPosition;
+
 
         public override void StartEvent(System.Action callback = null)
         {
@@ -54,11 +57,7 @@ namespace Main
                     0.0f,
                     _EndPosition.z
                     ));
-                PlayerComponent.transform.position = transform.localToWorldMatrix * new Vector4(
-                    _EndPosition.x,
-                    0.0f,
-                    _EndPosition.z
-                    ) + new Vector4(0.0f, PlayerComponent.transform.position.y, 0.0f, 1.0f);
+                PlayerComponent.transform.position = new Vector3(_NextCharacterPosition.position.x, PlayerComponent.transform.position.y, _NextCharacterPosition.position.z);
             }
 
             //ここでSE
