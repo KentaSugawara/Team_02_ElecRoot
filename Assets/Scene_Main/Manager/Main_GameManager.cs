@@ -7,6 +7,7 @@ namespace Main
     public enum Layers
     {
         Character = 13,
+        Enemy = 14,
         Wall = 19,
         HitMoltenIron = 25
     }

@@ -94,6 +94,7 @@ namespace Main
             inAction = true;
 
             var obj = Instantiate(_Prefab_ShotObj, _PlayerCharacter.transform.position, Quaternion.identity);
+            obj.transform.LookAt(obj.transform.position + v);
             var bullet = obj.GetComponent<Main_Bullet>();
             bullet.StartMove(v * _BulletSpeed);
             yield return new WaitForSeconds(0.0f + 20.0f / 30.0f);
