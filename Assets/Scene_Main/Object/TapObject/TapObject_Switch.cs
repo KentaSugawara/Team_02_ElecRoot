@@ -32,8 +32,8 @@ namespace Main
         private void Start()
         {
             _Sprite.gameObject.SetActive(false);
-            _Sprite_Off.enabled = true;
-            _Sprite_On.enabled = false;
+            if (_Event_Off) _Sprite_Off.enabled = true;
+            if (_Sprite_On) _Sprite_On.enabled = false;
             isOn = false;
         }
 
@@ -48,16 +48,16 @@ namespace Main
                     if (canOff)
                     {
                         if (_Event_Off) _Event_Off.StartEvent();
-                        _Sprite_Off.enabled = true;
-                        _Sprite_On.enabled = false;
+                        if (_Sprite_Off) _Sprite_Off.enabled = true;
+                        if (_Sprite_On) _Sprite_On.enabled = false;
                         isOn = false;
                     }
                 }
                 else
                 {
                     if (_Event_On) _Event_On.StartEvent();
-                    _Sprite_Off.enabled = false;
-                    _Sprite_On.enabled = true;
+                    if (_Sprite_Off) _Sprite_Off.enabled = false;
+                    if (_Sprite_On) _Sprite_On.enabled = true;
                     isOn = true;
                 }
             }
