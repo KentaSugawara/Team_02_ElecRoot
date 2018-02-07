@@ -10,24 +10,30 @@ namespace Main
         private GameObject BoxView; //テスト用
 
         [SerializeField]
-        private List<GameObject> _Targets;
-
-        [SerializeField]
         private GameObject _Sprite;
 
         [SerializeField]
-        private SpriteRenderer _Sprite_On;
+        private GameObject _Obj_On;
 
         [SerializeField]
-        private SpriteRenderer _Sprite_Off;
+        private GameObject _Obj_Off;
+
+        [SerializeField]
+        private Main_UI_EventCameraTarget _Event_On;
+
+        [SerializeField]
+        private Main_UI_EventCameraTarget _Event_Off;
+
+        [SerializeField]
+        private bool canOff;
 
         private bool isOn = false;
 
         private void Start()
         {
             _Sprite.gameObject.SetActive(false);
-            _Sprite_Off.enabled = true;
-            _Sprite_On.enabled = false;
+            if (_Obj_Off) _Obj_Off.SetActive(true);
+            if (_Obj_On) _Obj_On.SetActive(false);
             isOn = false;
         }
 
@@ -39,26 +45,22 @@ namespace Main
 
                 if (isOn)
                 {
-                    foreach (var obj in _Targets)
+                    if (canOff)
                     {
-                        obj.SetActive(true);
+                        if (_Event_Off) _Event_Off.StartEvent();
+                        if (_Obj_Off) _Obj_Off.SetActive(true);
+                        if (_Obj_On) _Obj_On.SetActive(false);
+                        isOn = false;
                     }
-                    _Sprite_Off.enabled = true;
-                    _Sprite_On.enabled = false;
-                    isOn = false;
                 }
                 else
                 {
-                    foreach (var obj in _Targets)
-                    {
-                        obj.SetActive(false);
-                    }
-                    _Sprite_Off.enabled = false;
-                    _Sprite_On.enabled = true;
+                    if (_Event_On) _Event_On.StartEvent();
+                    if (_Obj_Off) _Obj_Off.SetActive(false);
+                    if (_Obj_On) _Obj_On.SetActive(true);
                     isOn = true;
+                    if (!canOff) _Sprite.gameObject.SetActive(false);
                 }
-
-
             }
 
             return true;
@@ -67,6 +69,8 @@ namespace Main
         private Main_PlayerCharacter _Character = null;
         private void OnTriggerEnter(Collider other)
         {
+            if (isOn && !canOff) return;
+
             if (other.gameObject.layer == (int)Layers.Character)
             {
                 var chara = other.GetComponent<Main_PlayerCharacter>();

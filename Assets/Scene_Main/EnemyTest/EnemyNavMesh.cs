@@ -11,7 +11,7 @@ public class EnemyNavMesh : MonoBehaviour
     private float speed;
 
     [SerializeField]
-    private Main.Main_EnemyAttack bite;
+    private GameObject _Prefab_bite;
 
     [SerializeField]
     private float biteRadius;
@@ -19,6 +19,9 @@ public class EnemyNavMesh : MonoBehaviour
     private float distance;
     [SerializeField]
     private bool falter;
+
+    [SerializeField]
+    private Vector3 _Bite_Offset;
 
     [SerializeField]
     private Main_Enemy _Enemy;
@@ -44,13 +47,27 @@ public class EnemyNavMesh : MonoBehaviour
         agent.SetDestination(player.position);
 
         agent.updateRotation = false;
-        bite.gameObject.SetActive(false);
     }
 
     bool isAttack = false;
 
+    [SerializeField]
+    private float _FindRange;
+    private bool _FindPlayer = false;
     void Update()
     {
+        if (!_FindPlayer)
+        {
+            if (Vector3.SqrMagnitude(Vector3.Scale(new Vector3(1, 0, 1), player.position) - Vector3.Scale(new Vector3(1, 0, 1), transform.position)) > _FindRange * _FindRange)
+            {
+                return;
+            }
+            _FindPlayer = true;
+            StartCoroutine(Routine_Find());
+        }
+
+        if (_isFind) return;
+
         if (_Enemy.isDead) return;
 
         if (!isAttack)
@@ -64,26 +81,29 @@ public class EnemyNavMesh : MonoBehaviour
             {
                 agent.SetDestination(player.position - new Vector3(2, 0, 0));
                 distance = Vector3.Distance(gameObject.transform.position, player.position - new Vector3(2, 0, 0));
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else
             {
                 agent.SetDestination(player.position + new Vector3(2, 0, 0));
                 distance = Vector3.Distance(gameObject.transform.position, player.position + new Vector3(2, 0, 0));
-            }
-
-            if (agent.velocity.x < 0.0f)
-            {
                 transform.localScale = new Vector3(1, 1, 1);
             }
-            else
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
 
-            if (distance < remainingDistance * 3)
-            {
-                agent.speed = speed;
-            }
+            //if (agent.velocity.x < 0.0f)
+            //{
+            //    transform.localScale = new Vector3(1, 1, 1);
+            //}
+            //else if (agent.velocity.x > 0.0f)
+            //{
+            //    transform.localScale = new Vector3(-1, 1, 1);
+            //}
+
+
+            //if (distance < remainingDistance * 3)
+            //{
+            //    agent.speed = speed;
+            //}
             if (distance < 1)
             {
                 StartCoroutine(Routine_Attack());
@@ -91,21 +111,53 @@ public class EnemyNavMesh : MonoBehaviour
         }
     }
 
+    private bool _isFind;
+    private IEnumerator Routine_Find()
+    {
+        _isFind = true;
+        _EnemyModel.State = EnemyModel.EnemyState.Attack;
+        yield return new WaitForSeconds(1.0f);
+        _isFind = false;
+        _EnemyModel.State = EnemyModel.EnemyState.Wait;
+        agent.speed = speed;
+    }
+
     private IEnumerator Routine_Attack()
     {
         isAttack = true;
-        bite.gameObject.SetActive(true);
         agent.speed = 0.0f;
 
-        Vector3 v = (player.position - transform.position).normalized;
-        bite.transform.position = transform.position + v * biteRadius;
+        if (player.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        _EnemyModel.State = EnemyModel.EnemyState.Wait;
+        yield return new WaitForSeconds(1.0f);
+
+
+        var bite = Instantiate(_Prefab_bite);
+        var component = bite.GetComponent<Main.Main_EnemyAttack>();
+        component.Enemy = _Enemy;
+
+        if (transform.localScale.x < 0.0f)
+        {
+            bite.transform.position = _Bite_Offset + transform.position + Vector3.right * biteRadius;
+        }
+        else
+        {
+            bite.transform.position = _Bite_Offset + transform.position + Vector3.left * biteRadius;
+        }
 
         _EnemyModel.State = EnemyModel.EnemyState.Attack;
         yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
         _EnemyModel.State = EnemyModel.EnemyState.Wait;
 
         isAttack = false;
-        bite.gameObject.SetActive(false);
 
         if (falter)
         {
@@ -115,7 +167,6 @@ public class EnemyNavMesh : MonoBehaviour
         }
         else
         {
-            bite.Damage();
             agent.speed = speed;
         }
     }

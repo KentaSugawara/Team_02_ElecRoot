@@ -4,10 +4,10 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 13
-  productGUID: d66c21d8f3edb6d4881bccfe6fb48f9a
+  productGUID: bdb7c1a317cf99843bc491a001872316
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  defaultScreenOrientation: 2
+  defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -147,8 +147,7 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier:
-    Android: com.Vantan.Team02_Elec
+  applicationIdentifier: {}
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -608,8 +607,8 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: da4ea530-41f1-4d71-a2a7-03243044ce9b
-  projectName: Team_02
+  cloudProjectId: 47f3075d-a7fd-4de7-9e3c-c5d4e22fefef
+  projectName: Team_02 (1)
   organizationId: zugatyatt
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

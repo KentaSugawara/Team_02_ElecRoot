@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
@@ -27,6 +28,9 @@ namespace Main
         private float _GameOverNeedTime;
 
         [SerializeField]
+        private Main_StageClearEffect _StageClear;
+
+        [SerializeField]
         private GameObject _Button_ToTitle;
 
         [SerializeField]
@@ -34,6 +38,12 @@ namespace Main
 
         [SerializeField]
         private float _ButtonNeedTime;
+
+        [SerializeField]
+        private string _Title_SceneName;
+
+        [SerializeField]
+        private string _Retry_SceneName;
 
         private void Start()
         {
@@ -50,9 +60,52 @@ namespace Main
 
         private IEnumerator Routine_GameClear()
         {
-            bool isRunning = true;
-            _Tou_Hikari.StartClearFlash(() => isRunning = false);
-            while (isRunning) yield return null;
+            var UIManager = Main_GameManager.UIManager;
+            var CameraComponent = Main_GameManager.MainCamera.GetComponent<Main_Camera>();
+
+            //FadeOut
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Normal.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+            
+            //MoveCamera
+            {
+                CameraComponent.StartEventCamera(_Tou_Hikari.CameraTarget);
+            }
+
+            //FadeIn
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Normal.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            {
+                bool isRunning = true;
+                _Tou_Hikari.StartClearFlash(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            {
+                bool isRunning = true;
+                _StageClear.StartEffect(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(1.0f);
+
+            //FadeOut
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Dissolve.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(1.0f);
+
+            SceneManager.LoadScene(_Title_SceneName);
         }
 
         public void Start_GameOver()
@@ -103,6 +156,16 @@ namespace Main
                 _Button_ToTitle.SetActive(true);
                 _Button_ToRetry.SetActive(true);
             }
+        }
+
+        public void ToTitle()
+        {
+            SceneManager.LoadScene(_Title_SceneName);
+        }
+
+        public void ToRetry()
+        {
+            SceneManager.LoadScene(_Retry_SceneName);
         }
     }
 }

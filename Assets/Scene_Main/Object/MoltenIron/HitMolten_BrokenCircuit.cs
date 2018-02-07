@@ -16,6 +16,13 @@ namespace Main
         private SpriteRenderer _LightTexture;
 
         [SerializeField]
+        private Transform _MaskTransform;
+        [SerializeField]
+        private Vector3 _MaskStartLocalScale;
+        [SerializeField]
+        private Vector3 _MaskEndLocalScale;
+
+        [SerializeField]
         private GameObject _LockOnObj;
 
         [SerializeField]
@@ -23,6 +30,9 @@ namespace Main
 
         [SerializeField]
         private float _RepairSpeed = 1.0f;
+
+        [SerializeField]
+        private Main_UI_EventCameraTarget _EventTarget;
 
         private bool _AlreadyHit = false;
 
@@ -41,6 +51,7 @@ namespace Main
             {
                 for (float t = 0; t < _LightSpan; t += Time.deltaTime)
                 {
+                    if (_MaskTransform) _MaskTransform.localScale = Vector3.Lerp(_MaskStartLocalScale, _MaskEndLocalScale, t / _LightSpan);
                     _LightTexture.material.color = Color.Lerp(s, e, t / _LightSpan);
                     yield return null;
                 }
@@ -48,6 +59,7 @@ namespace Main
 
                 for (float t = 0; t < _LightSpan; t += Time.deltaTime)
                 {
+                    if (_MaskTransform) _MaskTransform.localScale = Vector3.Lerp(_MaskEndLocalScale, _MaskStartLocalScale, t / _LightSpan);
                     _LightTexture.material.color = Color.Lerp(e, s, t / _LightSpan);
                     yield return null;
                 }
@@ -75,16 +87,26 @@ namespace Main
             Color s1 = _BrokenRenderer.material.color;
             Color s2 = _LightTexture.material.color;
             Color e = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+            Vector3 ms = _MaskTransform.localScale;
             for (float t = 0; t < _RepairSpeed; t += Time.deltaTime)
             {
-                _BrokenRenderer.material.color = Color.Lerp(s1, e, t / _RepairSpeed);
-                _LightTexture.material.color = Color.Lerp(s2, e, t / _RepairSpeed);
+                float dt = t / _RepairSpeed;
+                if (_MaskTransform)
+                {
+                    Vector3 p1 = Vector3.Lerp(ms, Vector3.zero, dt);
+                    _MaskTransform.localScale = Vector3.Lerp(ms, p1, dt);
+                }
+                _BrokenRenderer.material.color = Color.Lerp(s1, e, dt);
+                _LightTexture.material.color = Color.Lerp(s2, e, dt);
                 yield return null;
             }
             _BrokenRenderer.material.color = e;
             _LightTexture.material.color = e;
+            _MaskTransform.gameObject.SetActive(false);
 
             Main_GameManager.RepairCiruit();
+
+            if (_EventTarget) _EventTarget.StartEvent();
         }
     }
 }

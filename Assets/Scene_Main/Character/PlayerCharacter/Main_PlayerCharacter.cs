@@ -22,6 +22,13 @@ namespace Main
         private Main_Player_Action _Action;
 
         [SerializeField]
+        private GameObject _Live2dTexture;
+        public GameObject Live2dTexture
+        {
+            get { return _Live2dTexture; }
+        }
+
+        [SerializeField]
         private Rigidbody _Rigidbody;
 
         private CharaState _State = CharaState.Wait;
@@ -132,7 +139,7 @@ namespace Main
         int Mask_Floor = 1 << 19;
         public void Move(Vector2 MoveVector, float Magnitude)
         {
-            if (_State == CharaState.HandAttack && _State == CharaState.BarAttack && _State == CharaState.Damage && _State == CharaState.Down)
+            if (_State == CharaState.HandAttack || _State == CharaState.BarAttack || _State == CharaState.Shot || _State == CharaState.Damage || _State == CharaState.Down)
             {
                 return;
             }
@@ -196,7 +203,7 @@ namespace Main
         {
             _Rigidbody.velocity = Vector3.zero;
             //
-            if (_State != CharaState.HandAttack && _State != CharaState.BarAttack && _State != CharaState.Damage && _State != CharaState.Down)
+            if (_State != CharaState.HandAttack && _State != CharaState.BarAttack && _State != CharaState.Shot && _State != CharaState.Damage && _State != CharaState.Down)
             {
                 ChangeState(CharaState.Wait);
             }
@@ -313,7 +320,6 @@ namespace Main
                 var colliders = Physics.OverlapSphere(transform.position, _FindRadius, Mask_LockOn);
                 if (colliders.Length > 0)
                 {
-                    Debug.Log(colliders.Length);
                     var target = colliders[0].GetComponent<Main_LockOnObject>();
                     setLockOn(target);
                 }

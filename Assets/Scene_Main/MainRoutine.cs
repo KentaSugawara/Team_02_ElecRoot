@@ -41,5 +41,22 @@ namespace Main
 
             _PlayerCharacter.Init(_StartHP, _StartNumOfBar);
         }
+
+        private void Start()
+        {
+            StartCoroutine(Routine_Start());
+        }
+
+        private IEnumerator Routine_Start()
+        {
+            Time.timeScale = 0.0f;
+            //FadeIn
+            if(_UIManager.Fade_Dissolve != null) {
+                bool running = true;
+                _UIManager.Fade_Dissolve.StartFade(() => running = false);
+                while (running) yield return null;
+            }
+            Time.timeScale = 1.0f;
+        }
     }
 }

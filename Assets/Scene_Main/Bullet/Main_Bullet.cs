@@ -9,6 +9,9 @@ namespace Main
         [SerializeField]
         private Vector3 _Velocity;
 
+        [SerializeField]
+        private GameObject _Prefab_Effect;
+
         public void StartMove(Vector3 Velocity)
         {
             Debug.Log("Shot : " + Velocity);
@@ -29,7 +32,8 @@ namespace Main
         {
             if (other.gameObject.layer == (int)Layers.Wall)
             {
-                //壁のとの接触
+                //壁との接触
+                Instantiate(_Prefab_Effect, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
             else if(other.gameObject.layer == (int)Layers.HitMoltenIron)
@@ -37,6 +41,12 @@ namespace Main
                 //鉄液のヒット対象との接触
                 var c = other.gameObject.GetComponent<Main_HitMoltenIron>();
                 if (c != null) c.HitMoltenIron();
+            }
+            else if(other.gameObject.layer == (int)Layers.Enemy)
+            {
+                //敵との接触
+                Instantiate(_Prefab_Effect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
         }
     }
