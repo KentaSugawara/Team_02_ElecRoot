@@ -18,12 +18,16 @@ public class ZoomOut : MonoBehaviour
     [SerializeField]
     private GameObject[] tit;
     [SerializeField]
+    private GameObject[] clearstage;
+    [SerializeField]
     private GameObject circle;
 
     [SerializeField]
     private int title_objnum;
     [SerializeField]
     private float drain;
+
+    public bool[] stage_clear;
 
     void Start()
     {
@@ -73,6 +77,9 @@ public class ZoomOut : MonoBehaviour
 
     private IEnumerator zoomout()
     {
+        var start_pos = circle.transform.position;
+        float t = 0;
+
         while (true)
         {
             for (int i = 0; i < title_objnum; i++)
@@ -84,13 +91,20 @@ public class ZoomOut : MonoBehaviour
             anc.localScale -= new Vector3(time, time, 0);
             gameObject.GetComponent<RectTransform>().pivot = anc.pivot;
             gameObject.GetComponent<RectTransform>().localScale = anc.localScale;
-            circle.transform.position += new Vector3(time * drain, 0, 0);
+            circle.transform.position = Vector3.Lerp(start_pos, start_pos + new Vector3(Screen.width / 2, 0.0f, 0.0f), t);
+            t += time;
 
             if (anc.pivot.x >= 1.0f)
             {
+                tit[title_objnum].SetActive(true);
+
                 for (int i = title_objnum; i < tit.Length; i++)
                 {
-                    tit[i].SetActive(true);
+                    if (stage_clear[i - title_objnum])
+                    {
+                        clearstage[i - title_objnum].SetActive(true);
+                        tit[i].SetActive(true);
+                    }
                 }
                 anc.pivot = new Vector2(1.0f, 1.0f);
                 anc.localScale = new Vector3(1.0f, 1.0f, 1.0f);
