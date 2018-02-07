@@ -553,8 +553,12 @@ MonoBehaviour:
   tit:
   - {fileID: 561262735}
   - {fileID: 33882577}
+  - {fileID: 1050652442}
   - {fileID: 1402075952}
   - {fileID: 1721939047}
+  circle: {fileID: 401271344}
+  title_objnum: 3
+  drain: 350
 --- !u!82 &775706676
 AudioSource:
   m_ObjectHideFlags: 0
