@@ -55,6 +55,7 @@ public class ZoomOut : MonoBehaviour
             {
                 souce.clip = Menu_BGM;
                 souce.Play();
+                souce.volume = 0.0f;
                 title = false;
             }
             if (!title && anc.pivot.x >= 1.0f) { souce.volume += time / 3; }
@@ -67,7 +68,7 @@ public class ZoomOut : MonoBehaviour
     {
         while (true)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 tit[i].SetActive(false);
             }
@@ -79,7 +80,7 @@ public class ZoomOut : MonoBehaviour
 
             if (anc.pivot.x >= 1.0f)
             {
-                for (int i = 3; i < tit.Length; i++)
+                for (int i = 2; i < tit.Length; i++)
                 {
                     tit[i].SetActive(true);
                 }
