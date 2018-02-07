@@ -7,6 +7,9 @@ namespace Main
     public class Main_Player_Attack : MonoBehaviour
     {
         [SerializeField]
+        private Main_PlayerCharacter _Player;
+
+        [SerializeField]
         private Collider _Collider;
 
         [SerializeField]
@@ -17,6 +20,9 @@ namespace Main
 
         [SerializeField]
         private float _AttackNeedTime;
+
+        [SerializeField]
+        private bool _UseBar;
 
         private void Start()
         {
@@ -41,6 +47,7 @@ namespace Main
 
         private IEnumerator Routine_AttackOneShot(Vector2 Direction, float Length, Vector3 Offset)
         {
+            _TargetEnemy = null;
             yield return new WaitForSeconds(_AttackNeedTime);
             transform.localPosition = new Vector3(Direction.x, 0.0f, Direction.y) * Length + Offset;
             yield return null;
@@ -50,12 +57,19 @@ namespace Main
 
         //private List<Main_Enemy> HitEnemys = new List<Main_Enemy>();
         private Main_Enemy _TargetEnemy;
+        private EnemyNavMesh _EnemyAI;
         private void OnTriggerEnter(Collider other)
         {
             var enemy = other.GetComponent<Main_Enemy>();
             if (enemy != null)
             {
                 _TargetEnemy = enemy;
+            }
+
+            var enemyAI = other.GetComponent<EnemyNavMesh>();
+            if (enemyAI != null)
+            {
+                _EnemyAI = enemyAI;
             }
         }
 
@@ -79,9 +93,11 @@ namespace Main
             if (_TargetEnemy)
             {
                 _TargetEnemy.Damage(_Power);
+                _EnemyAI.Damage();
 
                 if (_Prefab_HitEffect != null)
                 {
+                    if (_UseBar) _Player.BarAttack();
                     var obj = Instantiate(_Prefab_HitEffect);
                     obj.transform.position = transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0.0f, Random.Range(-0.1f, 0.1f));
                 }

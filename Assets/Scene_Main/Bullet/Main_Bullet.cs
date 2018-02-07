@@ -40,7 +40,7 @@ namespace Main
             {
                 //鉄液のヒット対象との接触
                 var c = other.gameObject.GetComponent<Main_HitMoltenIron>();
-                if (c != null) c.HitMoltenIron();
+                if (c != null) c.HitMoltenIron(this);
             }
             else if(other.gameObject.layer == (int)Layers.Enemy)
             {

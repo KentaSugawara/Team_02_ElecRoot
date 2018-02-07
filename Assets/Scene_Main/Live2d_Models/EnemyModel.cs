@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using System;
 using live2d;
 
@@ -110,5 +111,20 @@ public class EnemyModel : MonoBehaviour
         motionMgr.updateParam(live2DModel);
         live2DModel.update();
         live2DModel.draw();
+    }
+
+    private IEnumerator ColorRoutine;
+    public void SetColor(Color color, float Seconds)
+    {
+        if (ColorRoutine != null) StopCoroutine(ColorRoutine);
+        ColorRoutine = Routine_Color(color, Seconds);
+        StartCoroutine(ColorRoutine);
+    }
+
+    private IEnumerator Routine_Color(Color color, float Seconds)
+    {
+        live2DModel.setTextureColor(0, color.r, color.g, color.b);
+        yield return new WaitForSeconds(Seconds);
+        live2DModel.setTextureColor(0, 1.0f, 1.0f, 1.0f);
     }
 }
