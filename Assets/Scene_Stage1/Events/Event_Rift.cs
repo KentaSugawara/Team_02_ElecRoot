@@ -15,6 +15,9 @@ namespace Main
         [SerializeField]
         private Vector3 _EndPosition;
 
+        [SerializeField]
+        private Transform _NextCharacterPosition;
+
 
         public override void StartEvent(System.Action callback = null)
         {
@@ -48,9 +51,17 @@ namespace Main
                 PlayerComponent.Live2dTexture.SetActive(false);
                 _EventPlayerChara.gameObject.SetActive(true);
                 _EventPlayerChara.State = CharaState.Wait;
+
+                Debug.Log(new Vector4(
+                    _EndPosition.x,
+                    0.0f,
+                    _EndPosition.z
+                    ));
+                PlayerComponent.transform.position = new Vector3(_NextCharacterPosition.position.x, PlayerComponent.transform.position.y, _NextCharacterPosition.position.z);
             }
 
             //ここでSE
+            yield return new WaitForSecondsRealtime(1.0f);
 
             //FadeIn
             {
@@ -59,7 +70,7 @@ namespace Main
                 while (running) yield return null;
             }
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSecondsRealtime(1.0f);
 
             _EventPlayerChara.State = CharaState.Walk;
             //プレイヤー移動
@@ -87,12 +98,6 @@ namespace Main
                 PlayerComponent.Live2dTexture.SetActive(true);
                 _EventPlayerChara.gameObject.SetActive(false);
                 _EventPlayerChara.State = CharaState.Wait;
-
-                PlayerComponent.transform.position = new Vector3(
-                    _EndPosition.x,
-                    PlayerComponent.transform.position.y,
-                    _EndPosition.z
-                    );
             }
 
             //FadeIn
@@ -103,7 +108,7 @@ namespace Main
             }
 
             Time.timeScale = 1.0f;
-            callback();
+            if (callback != null) callback();
         }
     }
 }

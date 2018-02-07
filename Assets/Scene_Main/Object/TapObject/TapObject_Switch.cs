@@ -13,10 +13,10 @@ namespace Main
         private GameObject _Sprite;
 
         [SerializeField]
-        private SpriteRenderer _Sprite_On;
+        private GameObject _Obj_On;
 
         [SerializeField]
-        private SpriteRenderer _Sprite_Off;
+        private GameObject _Obj_Off;
 
         [SerializeField]
         private Main_UI_EventCameraTarget _Event_On;
@@ -32,8 +32,8 @@ namespace Main
         private void Start()
         {
             _Sprite.gameObject.SetActive(false);
-            _Sprite_Off.enabled = true;
-            _Sprite_On.enabled = false;
+            if (_Obj_Off) _Obj_Off.SetActive(true);
+            if (_Obj_On) _Obj_On.SetActive(false);
             isOn = false;
         }
 
@@ -48,17 +48,18 @@ namespace Main
                     if (canOff)
                     {
                         if (_Event_Off) _Event_Off.StartEvent();
-                        _Sprite_Off.enabled = true;
-                        _Sprite_On.enabled = false;
+                        if (_Obj_Off) _Obj_Off.SetActive(true);
+                        if (_Obj_On) _Obj_On.SetActive(false);
                         isOn = false;
                     }
                 }
                 else
                 {
                     if (_Event_On) _Event_On.StartEvent();
-                    _Sprite_Off.enabled = false;
-                    _Sprite_On.enabled = true;
+                    if (_Obj_Off) _Obj_Off.SetActive(false);
+                    if (_Obj_On) _Obj_On.SetActive(true);
                     isOn = true;
+                    if (!canOff) _Sprite.gameObject.SetActive(false);
                 }
             }
 
@@ -84,8 +85,6 @@ namespace Main
 
         private void OnTriggerExit(Collider other)
         {
-            if (isOn && !canOff) return;
-
             if (other.gameObject.layer == (int)Layers.Character)
             {
                 var chara = other.GetComponent<Main_PlayerCharacter>();

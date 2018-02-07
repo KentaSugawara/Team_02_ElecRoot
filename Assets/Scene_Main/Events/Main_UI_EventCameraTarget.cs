@@ -9,6 +9,13 @@ namespace Main
         [SerializeField]
         private Vector3 Offset;
 
+        [SerializeField]
+        private float _OrthoSize = 5.0f;
+        public float OrthoSize
+        {
+            get { return _OrthoSize; }
+        }
+
         public virtual void StartEvent(System.Action callback = null)
         {
 

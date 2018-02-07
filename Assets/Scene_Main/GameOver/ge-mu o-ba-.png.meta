@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: e584f6c6ac3354c4391bd1a0b09e5a19
-timeCreated: 1516191050
+timeCreated: 1517990357
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: ge-mu o-ba-_0
+    21300002: ge-mu o-ba-_1
+    21300004: ge-mu o-ba-_2
+    21300006: ge-mu o-ba-_3
+    21300008: ge-mu o-ba-_4
+    21300010: ge-mu o-ba-_5
+    21300012: ge-mu o-ba-_6
+    21300014: ge-mu o-ba-_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -40,7 +48,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -94,7 +102,119 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ge-mu o-ba-_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 51
+        width: 120
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 52
+        width: 121
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_2
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 52
+        width: 124
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_3
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 52
+        width: 101
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_4
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 51
+        width: 124
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_5
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 52
+        width: 120
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_6
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 52
+        width: 101
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ge-mu o-ba-_7
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 52
+        width: 114
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

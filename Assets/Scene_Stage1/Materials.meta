@@ -1,7 +1,19 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 155af2447aca9574ab1ec2678c45ee11
 folderAsset: yes
 timeCreated: 1516932505
+=======
+<<<<<<< HEAD:Assets/Scene_Stage1/Materials.meta
+guid: 2a97e99eff0744b40bc7a827cc5f935f
+folderAsset: yes
+timeCreated: 1516806735
+=======
+guid: 14b20c11eb0c5bb4eb10f2c6c87a0364
+folderAsset: yes
+timeCreated: 1516956419
+>>>>>>> e017e7152b691a94397324fd8e0697fbdb7a9bbc:Assets/Scene_Stage1/Materials.meta
+>>>>>>> 6248063751998ec15e4511a2cf8c373e85c897c8
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

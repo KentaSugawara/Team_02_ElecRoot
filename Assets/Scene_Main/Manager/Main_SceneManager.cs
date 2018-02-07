@@ -28,6 +28,9 @@ namespace Main
         private float _GameOverNeedTime;
 
         [SerializeField]
+        private Main_StageClearEffect _StageClear;
+
+        [SerializeField]
         private GameObject _Button_ToTitle;
 
         [SerializeField]
@@ -69,9 +72,7 @@ namespace Main
             
             //MoveCamera
             {
-                bool isRunning = true;
                 CameraComponent.StartEventCamera(_Tou_Hikari.CameraTarget);
-                while (isRunning) yield return null;
             }
 
             //FadeIn
@@ -86,6 +87,25 @@ namespace Main
                 _Tou_Hikari.StartClearFlash(() => isRunning = false);
                 while (isRunning) yield return null;
             }
+
+            {
+                bool isRunning = true;
+                _StageClear.StartEffect(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(1.0f);
+
+            //FadeOut
+            {
+                bool isRunning = true;
+                Main_GameManager.UIManager.Fade_Dissolve.StartFade(() => isRunning = false);
+                while (isRunning) yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(1.0f);
+
+            SceneManager.LoadScene(_Title_SceneName);
         }
 
         public void Start_GameOver()

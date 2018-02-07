@@ -7,6 +7,7 @@ namespace Main
     public enum Layers
     {
         Character = 13,
+        Enemy = 14,
         Wall = 19,
         HitMoltenIron = 25
     }
@@ -49,6 +50,11 @@ namespace Main
         public static void GameOver()
         {
             SceneManager.Start_GameOver();
+        }
+
+        public static void GameClear()
+        {
+            SceneManager.Start_GameClear();
         }
     }
 }
