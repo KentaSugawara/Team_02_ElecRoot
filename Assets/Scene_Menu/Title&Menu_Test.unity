@@ -786,6 +786,7 @@ MonoBehaviour:
   title_objnum: 4
   drain: 250
   stage_clear: 010101
+  menu_start: 0
 --- !u!82 &775706676
 AudioSource:
   m_ObjectHideFlags: 0

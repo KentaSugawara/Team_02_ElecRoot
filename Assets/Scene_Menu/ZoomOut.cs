@@ -28,16 +28,46 @@ public class ZoomOut : MonoBehaviour
     private float drain;
 
     public bool[] stage_clear;
+    public bool menu_start;
 
     void Start()
     {
         souce = GetComponent<AudioSource>();
-        souce.clip = Title_BGM;
-        souce.Play();
+
         anc = gameObject.GetComponent<RectTransform>();
         _anc = 1.0f - anc.pivot.x;
         _sca = anc.localScale.x - 1.0f;
-        StartCoroutine(wait());
+
+        if (!menu_start)
+        {
+            StartCoroutine(wait());
+            souce.clip = Title_BGM;
+        }
+        else
+        {
+            souce.clip = Menu_BGM;
+
+            tit[title_objnum].SetActive(true);
+
+            for (int i = 0; i < title_objnum; i++)
+            {
+                tit[i].SetActive(false);
+            }
+            for (int i = title_objnum; i < tit.Length; i++)
+            {
+                if (stage_clear[i - title_objnum])
+                {
+                    clearstage[i - title_objnum].SetActive(true);
+                    tit[i].SetActive(true);
+                }
+            }
+            anc.pivot = new Vector2(1.0f, 1.0f);
+            anc.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            gameObject.GetComponent<RectTransform>().pivot = anc.pivot;
+            gameObject.GetComponent<RectTransform>().localScale = anc.localScale;
+            circle.SetActive(false);
+        }
+        souce.Play();
     }
 
     private IEnumerator wait()
@@ -61,7 +91,7 @@ public class ZoomOut : MonoBehaviour
         {
             var time = Time.deltaTime;
             souce = GetComponent<AudioSource>();
-            if(title)souce.volume -= time;
+            if (title) souce.volume -= time;
             if (souce.volume <= 0)
             {
                 souce.clip = Menu_BGM;
