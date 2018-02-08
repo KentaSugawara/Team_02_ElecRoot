@@ -82,6 +82,21 @@ namespace Main
             }
         }
 
+        public override void HitMoltenIron(Main_Bullet Bullet)
+        {
+            if (_AlreadyHit == false)
+            {
+                Bullet.transform.position = new Vector3(transform.position.x, Bullet.transform.position.y, transform.position.z);
+                //鉄液がヒットしたとき
+                _DenkiParticle.SetActive(false);
+                _LockOnObj.SetActive(false);
+                Main_GameManager.UIManager.PlayerCharacter.stopLockOn();
+                StopAllCoroutines();
+                StartCoroutine(Routine_Hit());
+                _AlreadyHit = true;
+            }
+        }
+
         private IEnumerator Routine_Hit()
         {
             Color s1 = _BrokenRenderer.material.color;

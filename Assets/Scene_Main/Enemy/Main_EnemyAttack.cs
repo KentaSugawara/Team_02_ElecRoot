@@ -22,12 +22,18 @@ namespace Main
             set { _Enemy = value; }
         }
 
-        private void Start()
+        public void StartEffect()
         {
             StartCoroutine(Routine_Main());
         }
 
-        private IEnumerator Routine_Main()
+        public void StopEffect()
+        {
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
+
+        public IEnumerator Routine_Main()
         {
             yield return new WaitForSeconds(_ToActiveSeconds);
             Instantiate(_Prefab_Bite, transform.position, Quaternion.identity);
