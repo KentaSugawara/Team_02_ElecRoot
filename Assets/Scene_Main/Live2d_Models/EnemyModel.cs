@@ -63,54 +63,65 @@ public class EnemyModel : MonoBehaviour
         motions[0].setLoopFadeIn(false);
 
         motionMgr = new MotionQueueManager();
+
+        StartCoroutine(Routine_Main());
     }
 
     private EnemyState? main = null;
 
-    void Update()
+    private IEnumerator Routine_Main()
     {
-        if (live2DModel == null) return;
-        live2DModel.setMatrix(transform.localToWorldMatrix * live2DCanvasPos);
-
-        if (!Application.isPlaying)
+        while(true)
         {
-            live2DModel.update();
-            return;
+            while (true)
+            {
+                if (live2DModel == null) break;
+                live2DModel.setMatrix(transform.localToWorldMatrix * live2DCanvasPos);
+
+                if (!Application.isPlaying)
+                {
+                    live2DModel.update();
+                    break;
+                }
+
+                if (motionMgr.isFinished() || main != _State)
+                {
+                    //歩き
+                    if (_State == EnemyState.Walk)
+                    {
+                        motionMgr.startMotion(motions[0]);
+                    }
+                }
+
+                if (main != _State)
+                {
+                    //噛みつき
+                    if (_State == EnemyState.Attack)
+                    {
+                        motionMgr.startMotion(motions[1]);
+                    }
+                    //怯み
+                    else if (_State == EnemyState.Stop)
+                    {
+                        motionMgr.startMotion(motions[2]);
+                    }
+                    //停止
+                    if (_State == EnemyState.Wait)
+                    {
+                        motionMgr.startMotion(motions[3]);
+                    }
+                }
+
+                main = _State;
+
+                motionMgr.updateParam(live2DModel);
+                live2DModel.update();
+                live2DModel.draw();
+
+                yield return null;
+            }
+            yield return null;
         }
-
-        if (motionMgr.isFinished() || main != _State)
-        {
-            //歩き
-            if (_State == EnemyState.Walk)
-            {
-                motionMgr.startMotion(motions[0]);
-            }
-        }
-
-        if (main != _State)
-        {
-            //噛みつき
-            if (_State == EnemyState.Attack)
-            {
-                motionMgr.startMotion(motions[1]);
-            }
-            //怯み
-            else if (_State == EnemyState.Stop)
-            {
-                motionMgr.startMotion(motions[2]);
-            }
-            //停止
-            if (_State == EnemyState.Wait)
-            {
-                motionMgr.startMotion(motions[3]);
-            }
-        }
-
-        main = _State;
-
-        motionMgr.updateParam(live2DModel);
-        live2DModel.update();
-        live2DModel.draw();
     }
 
     private IEnumerator ColorRoutine;

@@ -7,9 +7,6 @@ namespace Main
 {
     public class Main_TextViewer : MonoBehaviour
     {
-        [SerializeField, Multiline(3)]
-        private List<string> _Strings = new List<string>();
-
         [SerializeField]
         private Text _TargetText;
 
@@ -24,10 +21,10 @@ namespace Main
             _Canvas.SetActive(false);
         }
 
-        public void StartView(System.Action callback)
+        public void StartView(Asset_ViewText ViewText, System.Action callbackNextText = null)
         {
             _Canvas.SetActive(true);
-            StartCoroutine(Routine_View(callback));
+            StartCoroutine(Routine_View(ViewText, callbackNextText));
         }
 
         private bool _isInput;
@@ -36,9 +33,9 @@ namespace Main
             _isInput = true;
         }
 
-        private IEnumerator Routine_View(System.Action callback)
+        private IEnumerator Routine_View(Asset_ViewText ViewText, System.Action callbackNextText)
         {
-            foreach (var str in _Strings)
+            foreach (var str in ViewText.Strings)
             {
                 _TargetText.text = "";
                 _isInput = false;
@@ -48,7 +45,7 @@ namespace Main
                 while (!_isInput) yield return null;
             }
 
-            callback();
+            if (callbackNextText != null) callbackNextText();
         }
 
         private IEnumerator Routine_ViewLine(string str)
@@ -60,7 +57,7 @@ namespace Main
                     if (_isInput)
                     {
                         _TargetText.text = str;
-                        break;
+                        yield break;
                     }
                     yield return null;
                 }

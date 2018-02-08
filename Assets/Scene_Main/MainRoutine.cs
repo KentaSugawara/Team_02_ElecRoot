@@ -33,6 +33,9 @@ namespace Main
         [SerializeField]
         private int _NumObBrokenCircuit;
 
+        [SerializeField]
+        private List<Main_UI_EventCameraTarget> _Events = new List<Main_UI_EventCameraTarget>();
+
         private void Awake()
         {
             Main_GameManager.Init(_MainSettings, _MainCamera, _InputManager, _UIManager, _SceneManager);
@@ -57,6 +60,11 @@ namespace Main
                 while (running) yield return null;
             }
             Time.timeScale = 1.0f;
+
+            foreach (var e in _Events)
+            {
+                e.StartEvent();
+            }
         }
     }
 }
