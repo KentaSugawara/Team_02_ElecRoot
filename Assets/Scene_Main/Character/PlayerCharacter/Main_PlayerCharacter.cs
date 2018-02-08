@@ -292,6 +292,7 @@ namespace Main
             if (_BarLife <= 0)
             {
                 --_NumOfBar;
+                UpdateBarViewer();
                 _BarLife = _MaxBarLife;
             }
         }
