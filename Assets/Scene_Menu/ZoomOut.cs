@@ -133,7 +133,10 @@ public class ZoomOut : MonoBehaviour
                     if (stage_clear[i - title_objnum])
                     {
                         clearstage[i - title_objnum].SetActive(true);
-                        tit[i].SetActive(true);
+                        if (i < tit.Length - 1)
+                        {
+                            tit[i + 1].SetActive(true);
+                        }
                     }
                 }
                 anc.pivot = new Vector2(1.0f, 1.0f);
