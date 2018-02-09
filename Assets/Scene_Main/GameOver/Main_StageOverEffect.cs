@@ -11,7 +11,7 @@ namespace Main
         private List<Image> _Images;
 
         [SerializeField]
-        private Image _LastImage;
+        private Transform _LastImage;
 
         [SerializeField]
         private List<int> _Indexes;
@@ -20,23 +20,13 @@ namespace Main
         private float _Delay;
 
         [SerializeField]
-        private float _Delay1;
+        private Quaternion _NewRotation;
 
         [SerializeField]
-        private float _Delay2;
-
-
-        [SerializeField]
-        private int _RotateInt;
+        private Vector3 _Position;
 
         [SerializeField]
-        private int _Rotate1Int;
-
-        [SerializeField]
-        private Vector3 _Rotation;
-
-        [SerializeField]
-        private Vector3 _NewRotation;
+        private Vector3 _Position2;
 
         [SerializeField]
         private float _NeedTimePerOne;
@@ -65,16 +55,11 @@ namespace Main
         [SerializeField]
         private Vector3 _Offset_Bezier;
 
-        [SerializeField]
-        private float minAngle = 0.0F;
-
-        [SerializeField]
-        private float maxAngle = 90.0F;
-
 
         public void StartEffect(System.Action callback)
         {
-            _LastImage.transform.Rotate(Vector3.zero);
+            _LastImage.transform.rotation = new Quaternion(0,0,0,0);
+            _LastImage.transform.localPosition = new Vector3(484, 34, 0);
             StartCoroutine(Routine_Effect(callback));
         }
 
@@ -125,12 +110,37 @@ namespace Main
 
         private IEnumerator Routine_RotateEffect(System.Action callback)
         {
-            yield return new WaitForSecondsRealtime(1.5f);
+            yield return new WaitForSecondsRealtime(1.4f);
+            for (int i = 0; i < 2; i++)
             {
-                for (float t = 0.0f; t < _NeedTimePerOne; t += Time.unscaledDeltaTime)
+                yield return new WaitForSecondsRealtime(0.1f);
+
                 {
-                    Vector3 rotation = Vector3.Lerp(_Rotation, _NewRotation, t * 2);
-                    _LastImage.rectTransform.localEulerAngles = rotation;
+                    for (float t = 0.0f; t < 0.3f; t += Time.unscaledDeltaTime)
+                    {
+                        _LastImage.transform.localPosition = Vector3.Lerp(_LastImage.transform.localPosition, _Position, 0.01f);
+
+                        yield return null;
+                    }
+                }
+                yield return new WaitForSecondsRealtime(0.1f);
+                {
+                    for (float t = 0.0f; t < 0.3f; t += Time.unscaledDeltaTime)
+                    {
+                        _LastImage.transform.localPosition = Vector3.Lerp(_LastImage.transform.localPosition, _Position2, 0.01f);
+
+                        yield return null;
+                    }
+                }
+            }
+
+
+            yield return new WaitForSecondsRealtime(0.5f);
+            {
+                for (float t = 0.0f; t < 0.3f; t += Time.unscaledDeltaTime)
+                {
+                     _LastImage.transform.rotation = Quaternion.Slerp(_LastImage.transform.rotation, _NewRotation, 0.03f);
+
                     yield return null;
                 }
             }
