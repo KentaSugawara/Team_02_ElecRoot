@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using System;
 using live2d;
 
@@ -65,6 +66,7 @@ public class EnemyModel_2 : MonoBehaviour
         motionMgr = new MotionQueueManager();
     }
 
+    private Enemy2State? main = null;
 
     void Update()
     {
@@ -78,25 +80,29 @@ public class EnemyModel_2 : MonoBehaviour
         }
 
 
-        if (motionMgr.isFinished())
+        if (motionMgr.isFinished() || main != _State2)
         {
             //歩き
-            if (State2 == Enemy2State.Walk)
+            if (_State2 == Enemy2State.Walk)
             {
                 motionMgr.startMotion(motions[0]);
             }
-            //攻撃
-            else if (State2 == Enemy2State.Attack)
+        }
+
+        if (main != _State2)
+        {
+            //噛みつき
+            if (_State2 == Enemy2State.Attack)
             {
                 motionMgr.startMotion(motions[1]);
             }
             //怯み
-            else if (State2 == Enemy2State.Stop)
+            else if (_State2 == Enemy2State.Stop)
             {
                 motionMgr.startMotion(motions[2]);
             }
             //停止
-            if (State2 == Enemy2State.Wait)
+            if (_State2 == Enemy2State.Wait)
             {
                 motionMgr.startMotion(motions[3]);
             }
@@ -106,5 +112,20 @@ public class EnemyModel_2 : MonoBehaviour
         motionMgr.updateParam(live2DModel);
         live2DModel.update();
         live2DModel.draw();
+    }
+
+    private IEnumerator ColorRoutine;
+    public void SetColor(Color color, float Seconds)
+    {
+        if (ColorRoutine != null) StopCoroutine(ColorRoutine);
+        ColorRoutine = Routine_Color(color, Seconds);
+        StartCoroutine(ColorRoutine);
+    }
+
+    private IEnumerator Routine_Color(Color color, float Seconds)
+    {
+        live2DModel.setTextureColor(0, color.r, color.g, color.b);
+        yield return new WaitForSeconds(Seconds);
+        live2DModel.setTextureColor(0, 1.0f, 1.0f, 1.0f);
     }
 }

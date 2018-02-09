@@ -13,5 +13,10 @@ namespace Main
         {
             Debug.Log("Hit");
         }
+
+        public virtual void HitMoltenIron(Main_Bullet Bullet)
+        {
+            Debug.Log("Hit");
+        }
     }
 }

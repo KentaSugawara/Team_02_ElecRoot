@@ -40,5 +40,24 @@ namespace Main
         {
             get { return _Fade_Dissolve; }
         }
+
+        [SerializeField]
+        private List<GameObject> _UIList = new List<GameObject>();
+
+        public void HideUI()
+        {
+            foreach(var ui in _UIList)
+            {
+                ui.SetActive(false);
+            }
+        }
+
+        public void ViewUI()
+        {
+            foreach (var ui in _UIList)
+            {
+                ui.SetActive(true);
+            }
+        }
     }
 }

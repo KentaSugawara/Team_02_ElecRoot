@@ -64,15 +64,18 @@ namespace Main
         {
             Vector3 point = ((PointerEventData)data).position;
 
-            var rect = _Handle.rect;
-            rect.size *= 3.0f;
+            //var rect = _Handle.rect;
+            //rect.size *= 3.0f;
 
-            if (rect.Contains(point - _Handle.position))
-            {
-                PositionUpdate(point.y);
-                isMove = false;
-                _InputSuccess = false;
-            }
+            //if (rect.Contains(point - _Handle.position))
+            //{
+            //    PositionUpdate(point.y);
+            //    isMove = false;
+            //    _InputSuccess = false;
+            //}
+            PositionUpdate(point.y);
+            isMove = false;
+            _InputSuccess = false;
         }
 
         public void PointerDrag(BaseEventData data)

@@ -99,6 +99,11 @@ namespace Main
         }
 
         [SerializeField]
+        private int _MaxBarLife = 3;
+        private int _BarLife = 3;
+        
+
+        [SerializeField]
         private float _FindRadius;
 
         [SerializeField]
@@ -118,6 +123,7 @@ namespace Main
 
         private void Start()
         {
+            _BarLife = _MaxBarLife;
             StartCoroutine(Routine_Main());
         }
 
@@ -231,11 +237,11 @@ namespace Main
             return transform.position;
         }
 
-        public Vector3 calcShotVector()
+        public Vector3 calcShotVector(Vector3 Offset)
         {
             if (_LockOnTarget != null)
             {
-                Vector3 v = (_LockOnTarget.transform.position - transform.position).normalized;
+                Vector3 v = (_LockOnTarget.transform.position - (transform.position + Offset)).normalized;
                 v.y = 0.0f;
                 return v;
             }
@@ -279,11 +285,24 @@ namespace Main
             return true;
         }
 
+
+        public void BarAttack()
+        {
+            --_BarLife;
+            if (_BarLife <= 0)
+            {
+                --_NumOfBar;
+                UpdateBarViewer();
+                _BarLife = _MaxBarLife;
+            }
+        }
+
         /// <summary>
         /// 鉄棒を補充する
         /// </summary>
         public bool ReplenishmentBar()
         {
+            _BarLife = _MaxBarLife;
             //最大数所持していないなら
             if (_NumOfBar < Main_GameManager.MainSettings.Chara_MaxNumOfBar)
             {

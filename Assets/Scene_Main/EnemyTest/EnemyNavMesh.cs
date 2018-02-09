@@ -122,6 +122,7 @@ public class EnemyNavMesh : MonoBehaviour
         agent.speed = speed;
     }
 
+    private Main.Main_EnemyAttack EnemyAttackComponent;
     private IEnumerator Routine_Attack()
     {
         isAttack = true;
@@ -141,8 +142,9 @@ public class EnemyNavMesh : MonoBehaviour
 
 
         var bite = Instantiate(_Prefab_bite);
-        var component = bite.GetComponent<Main.Main_EnemyAttack>();
-        component.Enemy = _Enemy;
+        EnemyAttackComponent = bite.GetComponent<Main.Main_EnemyAttack>();
+        EnemyAttackComponent.Enemy = _Enemy;
+        EnemyAttackComponent.StartEffect();
 
         if (transform.localScale.x < 0.0f)
         {
@@ -154,7 +156,9 @@ public class EnemyNavMesh : MonoBehaviour
         }
 
         _EnemyModel.State = EnemyModel.EnemyState.Attack;
-        yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
+        //yield return /*new WaitForSeconds(2.0f)*/Wait_for_Attack();
+        yield return Wait_for_Attack();
+        EnemyAttackComponent = null;
         _EnemyModel.State = EnemyModel.EnemyState.Wait;
 
         isAttack = false;
@@ -169,6 +173,20 @@ public class EnemyNavMesh : MonoBehaviour
         {
             agent.speed = speed;
         }
+    }
+
+    public void Damage()
+    {
+        if (EnemyAttackComponent != null) EnemyAttackComponent.StopEffect();
+        StartCoroutine(Routine_Damage());
+    }
+
+    private IEnumerator Routine_Damage()
+    {
+        _EnemyModel.State = EnemyModel.EnemyState.Stop;
+        _EnemyModel.SetColor(Color.red, 0.2f);
+        yield return new WaitForSeconds(0.5f);
+        _EnemyModel.State = EnemyModel.EnemyState.Wait;
     }
 
     private IEnumerator Wait_for_Attack()
